@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: var(--font-lora), serif;
+  --font-display: var(--font-playfair), serif;
+  --font-masthead: var(--font-unifraktur), serif;
+}
+
+@layer base {
+  body {
+    background-color: #f5f0e8;
+    color: #1a1a1a;
+  }
+}
+
+.paper-texture {
+  position: fixed;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.text-justify-news {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-playfair);
+  font-size: 5rem;
+  line-height: 0.8;
+  padding-top: 0.3rem;
+  padding-right: 0.5rem;
+  padding-bottom: 0.1rem;
+  color: #1a1a1a;
+  font-weight: 900;
+}
+
+.halftone-image {
+  filter: grayscale(100%) contrast(1.2);
+  mix-blend-mode: multiply;
+  position: relative;
+}
+
+.halftone-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #000 1px, transparent 1.5px);
+  background-size: 4px 4px;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.border-double-heavy {
+  border-top: 4px double #1a1a1a;
+  border-bottom: 4px double #1a1a1a;
+}
+
+.rule-hairline {
+  border-right: 1px solid rgba(26, 26, 26, 0.4);
+}
+
+.tag-breaking {
+  background-color: #C0392B;
+  color: #f5f0e8;
+  font-family: var(--font-lora);
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0 4px;
+}
