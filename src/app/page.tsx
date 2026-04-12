@@ -3,6 +3,8 @@ import { ExternalLink, Printer } from "lucide-react";
 import Image from "next/image";
 import { profile, projects } from "@/data";
 import BureauOfRecords from "@/components/BureauOfRecords";
+import DynamicMasthead from "@/components/DynamicMasthead";
+import InvestigativeLens from "@/components/InvestigativeLens";
 
 // Deterministic reference numbers based on project order to avoid hydration mismatch
 const refNumbers = projects.map((_, i) => String(1001 + i * 137).padStart(4, '0'));
@@ -46,23 +48,7 @@ export default function Home() {
     <div className="max-w-[1400px] mx-auto px-4 py-8 min-h-screen relative font-sans text-foreground transition-colors duration-500">
       {/* ===== MASTHEAD ===== */}
       <header className="flex flex-col items-center mb-6 pb-2 border-b-[6px] border-foreground border-double">
-        {/* Top Info Bar */}
-        <div className="w-full flex flex-col md:flex-row justify-between items-center md:items-end border-y-2 border-foreground py-2 px-2 text-xs uppercase font-bold tracking-widest mb-6 px-4">
-          <div className="hidden md:flex flex-col text-center md:text-left mb-2 md:mb-0">
-            <span>VOL. I ... No. 1</span>
-            <span className="block italic font-['Lora'] text-[10px] normal-case mt-1">Established 2026</span>
-          </div>
-          <div className="flex flex-col items-center text-center">
-            <span className="text-sm font-black">{today}</span>
-            <span className="block font-['Playfair_Display'] text-[11px] font-normal tracking-wide capitalize mt-1">
-              &quot;All the Code That&apos;s Fit to Ship&quot;
-            </span>
-          </div>
-          <div className="hidden md:flex flex-col text-center md:text-right">
-            <span>LATE CITY EDITION</span>
-            <span className="block font-['Lora'] italic text-[10px] normal-case mt-1">Weather: High Traffic, Zero Latency</span>
-          </div>
-        </div>
+        <DynamicMasthead />
 
         {/* Newspaper Title - Forced Single Line */}
         <div className="relative w-full text-center">
@@ -91,13 +77,10 @@ export default function Home() {
 
           <div className="flex items-center justify-between mb-6 border-b border-foreground/20 pb-2 italic font-['Lora'] text-sm">
             <span className="flex items-center gap-3">
-              <Image
+              <InvestigativeLens
                 src="/Avatar.png"
                 alt="Ashwin Jauhary"
-                width={40}
-                height={40}
-                className="rounded-full grayscale contrast-125 border-2 border-foreground object-cover"
-                style={{ width: 40, height: 40 }}
+                className="w-12 h-12 rounded-full border-2 border-foreground"
               />
               By <strong className="font-sans uppercase tracking-widest text-xs not-italic">ASHWIN JAUHARY</strong>
             </span>
@@ -118,7 +101,7 @@ export default function Home() {
             {/* Inline Image Callout */}
             <div className="my-6 border-[3px] border-black p-2 bg-[#f0ebd9] inline-block w-full break-inside-avoid shadow-[4px_4px_0_#1a1a1a]">
               <div className="border border-black p-1 halftone-image bg-black/10 flex justify-center">
-                <Image src="/logo.png" alt="Architect Graphic" width={250} height={250} className="w-full h-auto mix-blend-multiply opacity-90 filter contrast-150 grayscale" />
+                <InvestigativeLens src="/logo.png" alt="Architect Graphic" />
               </div>
               <p className="text-[10px] uppercase font-sans font-bold text-center mt-2 tracking-widest px-2">Fig 1. Abstract System Schematic.</p>
             </div>

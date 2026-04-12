@@ -1,9 +1,11 @@
 import { projects } from "@/data";
 import { ExternalLink } from "lucide-react";
 import Image from "next/image";
+import InvestigativeLens from "@/components/InvestigativeLens";
 
 // Stable ref numbers at module level (avoids render purity issue)
-const refNumbers = projects.map(() => String(Math.floor(Math.random() * 9000) + 1000));
+// Deterministic reference numbers based on projects array
+const refNumbers = projects.map((_, i) => String(2001 + i * 111).padStart(4, '0'));
 
 const GithubIcon = ({ size = 16 }: { size?: number }) => (
   <svg 
@@ -26,55 +28,55 @@ export default function Portfolio() {
   const completed = projects.filter(p => p.status === "Completed");
 
   return (
-    <div className="max-w-[1400px] mx-auto px-4 py-8 min-h-screen font-sans text-[#1a1a1a]">
+    <div className="max-w-[1400px] mx-auto px-4 py-8 min-h-screen font-sans text-foreground transition-colors duration-500">
 
       {/* Header */}
-      <div className="text-center border-b-[6px] border-double border-black pb-4 mb-10">
+      <div className="text-center border-b-[6px] border-double border-foreground pb-4 mb-10">
         <p className="font-sans text-xs tracking-[0.3em] uppercase font-bold mb-1">Classified Section — Section C</p>
-        <h1 className="font-['Playfair_Display'] text-5xl md:text-7xl font-black uppercase tracking-tight">The Registry</h1>
-        <p className="font-['Lora'] italic text-base mt-2 text-black/60">A definitive record of {projects.length} deployed implementations, filed for public review.</p>
+        <h1 className="font-['Playfair_Display'] text-5xl md:text-7xl font-black uppercase tracking-tight text-foreground">The Registry</h1>
+        <p className="font-['Lora'] italic text-base mt-2 text-foreground/60">A definitive record of {projects.length} deployed implementations, filed for public review.</p>
       </div>
 
       {/* Stats Banner */}
-      <div className="grid grid-cols-3 border-y-2 border-black mb-10 divide-x-2 divide-black text-center">
+      <div className="grid grid-cols-3 border-y-2 border-foreground mb-10 divide-x-2 divide-foreground text-center bg-foreground/5">
         <div className="py-4">
-          <p className="font-['Playfair_Display'] text-4xl font-black">{projects.length}</p>
-          <p className="font-sans text-[10px] uppercase tracking-widest font-bold text-black/60">Total Projects</p>
+          <p className="font-['Playfair_Display'] text-4xl font-black text-foreground">{projects.length}</p>
+          <p className="font-sans text-[10px] uppercase tracking-widest font-bold text-foreground/60">Total Projects</p>
         </div>
         <div className="py-4">
-          <p className="font-['Playfair_Display'] text-4xl font-black">{featured.length}</p>
-          <p className="font-sans text-[10px] uppercase tracking-widest font-bold text-black/60">Featured</p>
+          <p className="font-['Playfair_Display'] text-4xl font-black text-foreground">{featured.length}</p>
+          <p className="font-sans text-[10px] uppercase tracking-widest font-bold text-foreground/60">Featured</p>
         </div>
         <div className="py-4">
-          <p className="font-['Playfair_Display'] text-4xl font-black">{[...new Set(projects.flatMap(p => p.tech))].length}+</p>
-          <p className="font-sans text-[10px] uppercase tracking-widest font-bold text-black/60">Technologies</p>
+          <p className="font-['Playfair_Display'] text-4xl font-black text-foreground">{[...new Set(projects.flatMap(p => p.tech))].length}+</p>
+          <p className="font-sans text-[10px] uppercase tracking-widest font-bold text-foreground/60">Technologies</p>
         </div>
       </div>
 
       {/* Featured Section */}
       <section className="mb-12">
-        <div className="flex justify-between items-center border-b-2 border-black pb-2 mb-6">
-          <h2 className="font-['Playfair_Display'] text-4xl font-black uppercase">Feature Reports</h2>
-          <span className="font-sans text-[10px] font-bold uppercase tracking-widest">{featured.length} Dispatches</span>
+        <div className="flex justify-between items-center border-b-2 border-foreground pb-2 mb-6">
+          <h2 className="font-['Playfair_Display'] text-4xl font-black uppercase text-foreground">Feature Reports</h2>
+          <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-foreground/60">{featured.length} Dispatches</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {featured.map((p, idx) => (
-            <article key={idx} className="border-2 border-black p-5 shadow-[4px_4px_0_#1a1a1a] bg-[#f0ebd9] flex flex-col">
+            <article key={idx} className="border-2 border-foreground p-5 shadow-[4px_4px_0_#000] dark:shadow-[4px_4px_0_#333] bg-foreground/5 flex flex-col transition-colors duration-500">
               <div className="flex justify-between items-center mb-3">
-                <span className="bg-black text-[#f5f0e8] font-sans text-[10px] font-bold uppercase tracking-widest px-2 py-0.5">{p.status}</span>
-                <span className="font-sans text-[10px] font-bold uppercase text-black/50">{p.category} · Ref: {refNumbers[projects.indexOf(p)]}</span>
+                <span className="bg-foreground text-background font-sans text-[10px] font-bold uppercase tracking-widest px-2 py-0.5">{p.status}</span>
+                <span className="font-sans text-[10px] font-bold uppercase text-foreground/50">{p.category} · Ref: {refNumbers[projects.indexOf(p)]}</span>
               </div>
               <h3 className="font-['Playfair_Display'] text-3xl font-black uppercase mb-2 leading-tight">
-                <a href={p.live !== '#' ? p.live : p.github} target="_blank" className="hover:underline decoration-2">{p.title}</a>
+                <a href={p.live !== '#' ? p.live : p.github} target="_blank" className="hover:underline decoration-2 text-foreground">{p.title}</a>
               </h3>
-              <p className="font-['Lora'] text-sm text-justify-news mb-4 grow">{p.description}</p>
+              <p className="font-['Lora'] text-sm text-justify-news mb-4 grow text-foreground/80">{p.description}</p>
               <div className="space-y-3">
                 <div className="flex flex-wrap gap-1.5">
-                  {p.tech.map((t, i) => <span key={i} className="font-mono text-[10px] border border-black px-1.5 py-0.5 bg-[#f5f0e8]">{t}</span>)}
+                  {p.tech.map((t, i) => <span key={i} className="font-mono text-[10px] border border-foreground/40 px-1.5 py-0.5 bg-foreground/5 text-foreground">{t}</span>)}
                 </div>
                 {p.features && (
-                  <div className="border-t border-black/30 pt-2">
-                    <p className="font-sans font-bold text-[10px] uppercase tracking-widest mb-1 text-black/60">Key Features</p>
+                  <div className="border-t border-foreground/30 pt-2">
+                    <p className="font-sans font-bold text-[10px] uppercase tracking-widest mb-1 text-foreground/60">Key Features</p>
                     <div className="flex flex-wrap gap-x-3 gap-y-1">
                       {p.features.map((f, i) => <span key={i} className="font-['Lora'] text-xs">· {f}</span>)}
                     </div>
@@ -97,10 +99,10 @@ export default function Portfolio() {
       </section>
 
       {/* Technical Performance Audit - Strategic Placement */}
-      <section className="mb-12 border-t-[6px] border-double border-black pt-10">
-        <div className="flex justify-between items-center border-b-2 border-black pb-2 mb-8">
-          <h2 className="font-['Playfair_Display'] text-4xl font-black uppercase">Infrastructure Activity Audit</h2>
-          <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-[#9b5de5]">Live Digital Feed</span>
+      <section className="mb-12 border-t-[6px] border-double border-foreground pt-10">
+        <div className="flex justify-between items-center border-b-2 border-foreground pb-2 mb-8">
+          <h2 className="font-['Playfair_Display'] text-4xl font-black uppercase text-foreground">Infrastructure Activity Audit</h2>
+          <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-accent">Live Digital Feed</span>
         </div>
 
         <div className="space-y-12">
@@ -111,13 +113,9 @@ export default function Portfolio() {
                 <span className="font-mono text-[10px] font-bold text-green-400">STATUS: NOMINAL</span>
              </div>
              <div className="overflow-x-auto">
-                <Image 
+                <InvestigativeLens 
                   src="https://ghchart.rshah.org/9b5de5/Ashwinjauhary" 
                   alt="Ashwin's Github Chart" 
-                  width={1000}
-                  height={150}
-                  unoptimized
-                  className="w-full h-auto min-w-[600px] brightness-110"
                 />
              </div>
              <div className="mt-4 flex justify-between items-center text-[#9b5de5]/60 font-mono text-[8px]">
@@ -130,24 +128,16 @@ export default function Portfolio() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="border-4 border-black p-5 bg-[#060c14] shadow-[6px_6px_0_#000]">
                 <p className="font-sans font-bold text-[10px] uppercase tracking-widest mb-3 border-b border-[#9b5de5]/30 pb-1 text-[#9b5de5]">Fig 1.4: Persistence Streak Monitor</p>
-                <Image 
+                <InvestigativeLens 
                   src="https://github-readme-streak-stats.herokuapp.com?user=Ashwinjauhary&theme=tokyonight&hide_border=true&background=060c14&ring=9b5de5&fire=9b5de5&currStreakLabel=9b5de5&sideLabels=8899aa&dates=8899aa" 
                   alt="GitHub Streak" 
-                  width={400}
-                  height={150}
-                  unoptimized
-                  className="w-full h-auto"
                 />
               </div>
               <div className="border-4 border-black p-5 bg-[#060c14] shadow-[6px_6px_0_#000]">
                 <p className="font-sans font-bold text-[10px] uppercase tracking-widest mb-3 border-b border-[#9b5de5]/30 pb-1 text-[#9b5de5]">Fig 1.5: Production Velocity Graph</p>
-                <Image 
+                <InvestigativeLens 
                   src="https://github-readme-activity-graph.vercel.app/graph?username=Ashwinjauhary&bg_color=060c14&color=9b5de5&line=7b3fe4&point=c49bff&area=true&hide_border=true" 
                   alt="Activity Graph" 
-                  width={400}
-                  height={250}
-                  unoptimized
-                  className="w-full h-auto"
                 />
               </div>
           </div>
@@ -155,32 +145,32 @@ export default function Portfolio() {
       </section>
 
       {/* Advanced Section */}
-      <section className="mb-12 border-t-4 border-black pt-6">
-        <div className="flex justify-between items-center border-b-2 border-black pb-2 mb-6">
-          <h2 className="font-['Playfair_Display'] text-3xl font-black uppercase">Advanced Technology Dispatches</h2>
-          <span className="font-sans text-[10px] font-bold uppercase tracking-widest">{advanced.length} Reports</span>
+      <section className="mb-12 border-t-4 border-foreground pt-6">
+        <div className="flex justify-between items-center border-b-2 border-foreground pb-2 mb-6">
+          <h2 className="font-['Playfair_Display'] text-3xl font-black uppercase text-foreground">Advanced Technology Dispatches</h2>
+          <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-foreground/60">{advanced.length} Reports</span>
         </div>
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
           {advanced.map((p, idx) => (
-            <div key={idx} className="break-inside-avoid border border-black p-4 mb-6 hover:bg-black/5 transition-colors">
+            <div key={idx} className="break-inside-avoid border border-foreground/40 p-4 mb-6 bg-foreground/5 hover:bg-foreground/10 transition-colors duration-500">
               <div className="flex justify-between items-center mb-2">
-                <span className="font-sans text-[10px] font-bold uppercase tracking-widest border border-black px-1.5 py-0.5">{p.category}</span>
-                <span className="font-sans text-[10px] text-black/40">#{refNumbers[projects.indexOf(p)]}</span>
+                <span className="font-sans text-[10px] font-bold uppercase tracking-widest border border-foreground/60 px-1.5 py-0.5 text-foreground">{p.category}</span>
+                <span className="font-sans text-[10px] text-foreground/40">#{refNumbers[projects.indexOf(p)]}</span>
               </div>
               <h4 className="font-['Playfair_Display'] text-xl font-black uppercase mb-2 leading-none">
-                <a href={p.live !== '#' ? p.live : p.github} target="_blank" className="hover:underline">{p.title}</a>
+                <a href={p.live !== '#' ? p.live : p.github} target="_blank" className="hover:underline text-foreground">{p.title}</a>
               </h4>
-              <p className="font-['Lora'] text-sm mb-3 text-justify-news">{p.description}</p>
+              <p className="font-['Lora'] text-sm mb-3 text-justify-news text-foreground/80">{p.description}</p>
               <div className="flex flex-wrap gap-1 mb-3">
-                {p.tech.map((t, i) => <span key={i} className="font-mono text-[10px] border border-black/40 px-1.5">{t}</span>)}
+                {p.tech.map((t, i) => <span key={i} className="font-mono text-[10px] border border-foreground/40 px-1.5 text-foreground/70">{t}</span>)}
               </div>
               <div className="flex gap-3 items-center">
                 {p.live !== '#' && (
-                  <a href={p.live} target="_blank" className="hover:bg-black hover:text-[#f5f0e8] transition-colors p-1" title="Live Deploy">
+                  <a href={p.live} target="_blank" className="hover:bg-foreground hover:text-background transition-colors p-1" title="Live Deploy">
                     <ExternalLink size={14} />
                   </a>
                 )}
-                <a href={p.github} target="_blank" className="hover:bg-black hover:text-[#f5f0e8] transition-colors p-1" title="View Source">
+                <a href={p.github} target="_blank" className="hover:bg-foreground hover:text-background transition-colors p-1" title="View Source">
                   <GithubIcon size={14} />
                 </a>
               </div>
@@ -190,29 +180,29 @@ export default function Portfolio() {
       </section>
 
       {/* Completed Section */}
-      <section className="border-t-4 border-black pt-6">
-        <div className="flex justify-between items-center border-b-2 border-black pb-2 mb-6">
-          <h2 className="font-['Playfair_Display'] text-3xl font-black uppercase">Completed Works Archive</h2>
-          <span className="font-sans text-[10px] font-bold uppercase tracking-widest">{completed.length} On Record</span>
+      <section className="border-t-4 border-foreground pt-6">
+        <div className="flex justify-between items-center border-b-2 border-foreground pb-2 mb-6">
+          <h2 className="font-['Playfair_Display'] text-3xl font-black uppercase text-foreground">Completed Works Archive</h2>
+          <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-foreground/60">{completed.length} On Record</span>
         </div>
-        <div className="divide-y divide-black/20">
+        <div className="divide-y divide-foreground/20">
           {completed.map((p, idx) => (
-            <div key={idx} className="py-4 grid grid-cols-12 gap-4 items-start hover:bg-black/5 transition-colors -mx-2 px-2">
-              <div className="col-span-1 font-mono text-xs text-black/40 mt-1">#{refNumbers[projects.indexOf(p)]}</div>
+            <div key={idx} className="py-4 grid grid-cols-12 gap-4 items-start hover:bg-foreground/5 transition-colors -mx-2 px-2 duration-300">
+              <div className="col-span-1 font-mono text-xs text-foreground/40 mt-1">#{refNumbers[projects.indexOf(p)]}</div>
               <div className="col-span-5">
                 <h4 className="font-['Playfair_Display'] font-black text-xl uppercase mb-1 leading-none">
-                  <a href={p.live} target="_blank" className="hover:underline">{p.title}</a>
+                  <a href={p.live} target="_blank" className="hover:underline text-foreground">{p.title}</a>
                 </h4>
-                <p className="font-sans text-[10px] uppercase tracking-widest text-black/60">{p.category}</p>
+                <p className="font-sans text-[10px] uppercase tracking-widest text-foreground/60">{p.category}</p>
               </div>
               <div className="col-span-4">
-                <p className="font-['Lora'] text-sm line-clamp-2">{p.description}</p>
+                <p className="font-['Lora'] text-sm line-clamp-2 text-foreground/80">{p.description}</p>
               </div>
               <div className="col-span-2 flex gap-2 items-center justify-end">
-                <a href={p.live} target="_blank" className="hover:bg-black hover:text-[#f5f0e8] transition-colors p-1" title="Live">
+                <a href={p.live} target="_blank" className="hover:bg-foreground hover:text-background transition-colors p-1" title="Live">
                   <ExternalLink size={14} />
                 </a>
-                <a href={p.github} target="_blank" className="hover:bg-black hover:text-[#f5f0e8] transition-colors p-1" title="Source">
+                <a href={p.github} target="_blank" className="hover:bg-foreground hover:text-background transition-colors p-1" title="Source">
                   <GithubIcon size={14} />
                 </a>
               </div>

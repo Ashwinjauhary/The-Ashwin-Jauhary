@@ -140,9 +140,9 @@ export default function TypewriterForm() {
           <div className="absolute inset-0 pointer-events-none border-l-2 border-red-500/20 ml-8 md:ml-12"></div>
 
           {/* Paper Header */}
-          <div className="text-center mb-12 border-b-2 border-dashed border-black/20 pb-6">
-            <h3 className="font-['Playfair_Display'] text-3xl font-black uppercase tracking-tight">The Dispatch</h3>
-            <p className="font-sans text-[10px] font-bold uppercase tracking-widest text-black/40 mt-1">To: Ashwin Jauhary · Correspondence Bureau</p>
+          <div className="text-center mb-12 border-b-2 border-dashed border-foreground/20 pb-6">
+            <h3 className="font-['Playfair_Display'] text-3xl font-black uppercase tracking-tight text-foreground">The Dispatch</h3>
+            <p className="font-sans text-[10px] font-bold uppercase tracking-widest text-foreground/40 mt-1">To: Ashwin Jauhary · Correspondence Bureau</p>
           </div>
 
           {/* Form Fields as Typed Lines */}
@@ -154,8 +154,8 @@ export default function TypewriterForm() {
                className="absolute -left-2 top-0 w-0.5 h-full bg-red-600/5"
             />
 
-            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 border-b border-black/10 pb-2">
-              <span className="font-sans text-[10px] font-black uppercase tracking-[0.2em] text-black/40 min-w-[80px]">From:</span>
+            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 border-b border-foreground/10 pb-2 transition-colors">
+              <span className="font-sans text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40 min-w-[80px]">From:</span>
               <input 
                 type="text" 
                 placeholder="TYPE NAME HERE..."
@@ -163,12 +163,12 @@ export default function TypewriterForm() {
                 onFocus={() => setActiveField("name")}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="flex-1 bg-transparent outline-none font-sans font-bold uppercase text-xs tracking-widest placeholder:text-black/10"
+                className="flex-1 bg-transparent outline-none font-sans font-bold uppercase text-xs tracking-widest placeholder:text-foreground/20 text-foreground"
               />
             </div>
 
-            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 border-b border-black/10 pb-2">
-              <span className="font-sans text-[10px] font-black uppercase tracking-[0.2em] text-black/40 min-w-[80px]">Signal:</span>
+            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 border-b border-foreground/10 pb-2 transition-colors">
+              <span className="font-sans text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40 min-w-[80px]">Signal:</span>
               <input 
                 type="email" 
                 placeholder="YOUR.EMAIL@COMMMS.GOV"
@@ -176,7 +176,7 @@ export default function TypewriterForm() {
                 onFocus={() => setActiveField("email")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 bg-transparent outline-none font-sans font-bold uppercase text-xs tracking-widest placeholder:text-black/10"
+                className="flex-1 bg-transparent outline-none font-sans font-bold uppercase text-xs tracking-widest placeholder:text-foreground/20 text-foreground"
               />
             </div>
 
@@ -191,11 +191,12 @@ export default function TypewriterForm() {
                 onFocus={() => setActiveField("text")}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="w-full bg-transparent border-none outline-none font-serif text-base md:text-lg italic placeholder:text-foreground/10 resize-none min-h-[400px] text-foreground"
+                className="w-full bg-transparent border-none outline-none font-serif text-base md:text-lg italic placeholder:text-foreground/20 resize-none min-h-[400px] text-foreground"
                 style={{ 
-                  backgroundImage: 'linear-gradient(transparent, transparent 33px, #ffffff08 33px, #ffffff08 34px, transparent 34px)', 
+                  backgroundImage: `linear-gradient(transparent, transparent 33px, var(--foreground) 33px, var(--foreground) 34px, transparent 34px)`, 
                   backgroundSize: '100% 34px',
-                  lineHeight: '34px'
+                  lineHeight: '34px',
+                  opacity: 0.8
                 }}
               />
             </div>

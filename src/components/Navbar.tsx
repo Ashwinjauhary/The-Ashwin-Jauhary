@@ -17,7 +17,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full bg-background border-b-[3px] border-foreground sticky top-0 z-100 transition-colors duration-500">
+    <nav className="w-full bg-background border-b-[3px] border-foreground transition-colors duration-500">
       <div className="max-w-[1400px] mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between py-2 border-b border-foreground/20 gap-1 md:gap-0">
           <span className="font-['Playfair_Display'] font-black text-sm italic hidden md:block text-foreground/40">The Ashwin Jauhary</span>

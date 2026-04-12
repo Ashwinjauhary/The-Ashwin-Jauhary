@@ -128,17 +128,17 @@ export default function BureauOfRecords() {
                     </motion.a>
                   ))}
                   {results.length > 5 && (
-                    <p className="text-[8px] uppercase font-bold text-center text-black/40 pt-2 italic">
+                    <p className="text-[8px] uppercase font-bold text-center text-foreground/40 pt-2 italic">
                       + {results.length - 5} more records found...
                     </p>
                   )}
                 </div>
               ) : (
                 <div className="h-full flex flex-col items-center justify-center py-6 text-center">
-                  <p className="text-[10px] uppercase font-bold text-black/40 tracking-widest">
+                  <p className="text-[10px] uppercase font-bold text-foreground/40 tracking-widest">
                     {query ? "No Records Matched Criteria" : "Input Retrieval Query Above"}
                   </p>
-                  <p className="text-[8px] italic text-black/20 mt-1 uppercase">Enter keyword to pull archive drawer</p>
+                  <p className="text-[8px] italic text-foreground/20 mt-1 uppercase">Enter keyword to pull archive drawer</p>
                 </div>
               )}
             </div>

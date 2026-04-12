@@ -116,45 +116,45 @@ const grouped = links.reduce<Record<string, typeof links>>((acc, link) => {
 
 export default function LinksPage() {
   return (
-    <div className="max-w-[1400px] mx-auto px-4 py-8 min-h-screen font-sans text-[#1a1a1a]">
+    <div className="max-w-[1400px] mx-auto px-4 py-8 min-h-screen font-sans text-foreground transition-colors duration-500">
 
       {/* Header */}
-      <div className="text-center border-b-[6px] border-double border-black pb-4 mb-10">
-        <p className="font-sans text-xs tracking-[0.3em] uppercase font-bold mb-1">Verified Dispatch — Section E</p>
-        <h1 className="font-['Playfair_Display'] text-5xl md:text-7xl font-black uppercase tracking-tight">
+      <div className="text-center border-b-[6px] border-double border-foreground pb-4 mb-10">
+        <p className="font-sans text-xs tracking-[0.3em] uppercase font-bold mb-1 text-foreground/60">Verified Dispatch — Section E</p>
+        <h1 className="font-['Playfair_Display'] text-5xl md:text-7xl font-black uppercase tracking-tight text-foreground">
           The Link Registry
         </h1>
-        <p className="font-['Lora'] italic text-base mt-2 text-black/60">
+        <p className="font-['Lora'] italic text-base mt-2 text-foreground/60">
           Official directory of all public-facing dispatches, deployments, and connections.
         </p>
       </div>
 
       {/* Masthead Address Card */}
-      <aside className="border-4 border-black p-6 mb-10 shadow-[6px_6px_0_#1a1a1a] bg-[#f0ebd9] max-w-2xl mx-auto text-center">
-        <p className="font-sans font-bold text-[10px] uppercase tracking-[0.3em] mb-3 border-b border-black pb-2">Correspondent In Chief</p>
+      <aside className="border-4 border-foreground p-6 mb-10 shadow-[6px_6px_0_#000] dark:shadow-[6px_6px_0_#333] bg-foreground/5 max-w-2xl mx-auto text-center transition-colors duration-500">
+        <p className="font-sans font-bold text-[10px] uppercase tracking-[0.3em] mb-3 border-b border-foreground pb-2 text-foreground">Correspondent In Chief</p>
         <div className="flex justify-center mb-3">
-          <div className="border-2 border-black shadow-[3px_3px_0_#1a1a1a] overflow-hidden rounded-full w-20 h-20">
+          <div className="border-2 border-foreground shadow-[3px_3px_0_#000] dark:shadow-[3px_3px_0_#333] overflow-hidden rounded-full w-20 h-20">
             <Image src="/Avatar.png" alt="Ashwin Jauhary" width={80} height={80} className="grayscale contrast-125 object-cover w-full h-full" />
           </div>
         </div>
-        <h2 className="font-['Playfair_Display'] text-3xl font-black mb-1">{profile.name}</h2>
-        <p className="font-['Lora'] italic text-base mb-4">{profile.title}</p>
-        <div className="flex flex-wrap justify-center gap-6 text-sm font-bold">
-          <a href={`mailto:${profile.email}`} className="border-b-2 border-black hover:bg-black hover:text-[#f5f0e8] transition-colors px-1">{profile.email}</a>
-          <span className="text-black/30">|</span>
+        <h2 className="font-['Playfair_Display'] text-3xl font-black mb-1 text-foreground">{profile.name}</h2>
+        <p className="font-['Lora'] italic text-base mb-4 text-foreground/80">{profile.title}</p>
+        <div className="flex flex-wrap justify-center gap-6 text-sm font-bold text-foreground">
+          <a href={`mailto:${profile.email}`} className="border-b-2 border-foreground hover:bg-foreground hover:text-background transition-colors px-1">{profile.email}</a>
+          <span className="text-foreground/30">|</span>
           <span className="font-['Lora'] italic">{profile.phone}</span>
-          <span className="text-black/30">|</span>
+          <span className="text-foreground/30">|</span>
           <span className="font-['Lora'] italic">{profile.location}</span>
         </div>
       </aside>
 
       {/* Links by Category in Classified Ad Style */}
       {Object.entries(grouped).map(([category, items]) => (
-        <section key={category} className="mb-10 border-t-4 border-black pt-4">
+        <section key={category} className="mb-10 border-t-4 border-foreground pt-4">
           <div className="flex items-baseline gap-4 mb-4">
-            <h2 className="font-['Playfair_Display'] text-2xl font-black uppercase">{category}</h2>
-            <div className="flex-1 border-t border-dotted border-black/40" />
-            <span className="font-sans text-[10px] font-bold uppercase tracking-widest">{items.length} Listing{items.length > 1 ? 's' : ''}</span>
+            <h2 className="font-['Playfair_Display'] text-2xl font-black uppercase text-foreground">{category}</h2>
+            <div className="flex-1 border-t border-dotted border-foreground/40" />
+            <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-foreground/60">{items.length} Listing{items.length > 1 ? 's' : ''}</span>
           </div>
 
           <div className={`grid gap-4 ${items.length > 1 ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 max-w-lg'}`}>
@@ -163,7 +163,7 @@ export default function LinksPage() {
                 key={i}
                 href={link.url}
                 target={link.url.startsWith('mailto') ? '_self' : '_blank'}
-                className="group block border border-black p-4 hover:bg-black hover:text-[#f5f0e8] transition-all duration-200 shadow-[2px_2px_0_#1a1a1a] hover:shadow-[4px_4px_0_#1a1a1a]"
+                className="group block border border-foreground/40 p-4 bg-foreground/5 hover:bg-foreground hover:text-background transition-all duration-300 shadow-[2px_2px_0_#000] dark:shadow-[2px_2px_0_#333] hover:shadow-[4px_4px_0_#000] dark:hover:shadow-[4px_4px_0_#333]"
               >
                 <div className="flex items-start gap-4">
                   {getIcon(link.label, link.icon)}
@@ -180,8 +180,8 @@ export default function LinksPage() {
       ))}
 
       {/* Bottom notice */}
-      <div className="border-t-4 border-double border-black mt-12 pt-4 text-center">
-        <p className="font-['Lora'] italic text-sm text-black/60">
+      <div className="border-t-4 border-double border-foreground mt-12 pt-4 text-center">
+        <p className="font-['Lora'] italic text-sm text-foreground/60">
           All links are verified and maintained. Last verified: {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}. 
           For corrections or additions, contact the editor directly.
         </p>

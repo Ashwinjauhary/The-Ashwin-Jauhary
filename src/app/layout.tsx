@@ -3,6 +3,7 @@ import { Playfair_Display, UnifrakturMaguntia, Lora } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import NewsChat from "@/components/NewsChat";
+import ScrollToTop from "@/components/ScrollToTop";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "600", "700", "900"], variable: "--font-playfair" });
@@ -38,6 +39,7 @@ export default function RootLayout({
           <div className="relative z-10">
             <Navbar />
             {children}
+            <ScrollToTop />
             <NewsChat />
           </div>
         </ThemeProvider>

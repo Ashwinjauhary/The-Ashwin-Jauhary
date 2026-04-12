@@ -144,6 +144,16 @@ export default function NewsChat() {
     setIsPlayingIdx(null);
   };
 
+  const analyzeTone = (text: string) => {
+    const t = text.toLowerCase();
+    const serious = ["error", "failed", "unauthorized", "critical", "denied", "stop", "illegal", "security", "classified", "redacted", "warning"];
+    const excited = ["extra", "excellent", "success", "unleashed", "great", "welcome", "found", "shipped", "new", "proud", "amazing"];
+    
+    if (serious.some(word => t.includes(word))) return { pitch: 0.7, rate: 0.8 };
+    if (excited.some(word => t.includes(word))) return { pitch: 1.05, rate: 0.98 };
+    return { pitch: 0.85, rate: 0.92 };
+  };
+
   const playRadio = (text: string, idx: number) => {
     if (isPlayingIdx !== null) {
       stopRadio();
@@ -157,6 +167,8 @@ export default function NewsChat() {
     // Phonetic corrections for better pronunciation
     cleanText = cleanText.replace(/Jauhary/gi, 'Jau-ha-ree');
 
+    const tone = analyzeTone(text);
+
     const radio = setupRadioNoise();
     if (radio) {
       radio.whiteNoise.start();
@@ -164,8 +176,8 @@ export default function NewsChat() {
     }
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.rate = 0.92;
-    utterance.pitch = 0.85; // Lower pitch for mature men feel
+    utterance.rate = tone.rate;
+    utterance.pitch = tone.pitch; 
 
     // Prioritize Mature Male Indian English voices
     const voices = window.speechSynthesis.getVoices();

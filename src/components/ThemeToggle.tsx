@@ -25,10 +25,16 @@ export function ThemeToggle() {
         title="Toggle Night Dispatch"
       >
         <div className="flex flex-col items-end">
-          <span className="font-sans text-[8px] font-black uppercase tracking-[0.2em] leading-none text-black/40 dark:text-white/40 group-hover:text-black dark:group-hover:text-white transition-colors">
+          <span 
+            className="font-sans text-[8px] font-black uppercase tracking-[0.2em] leading-none group-hover:opacity-100 transition-colors"
+            style={{ color: isDark ? 'rgba(255,255,255,0.4)' : 'black' }}
+          >
             Edition selector
           </span>
-          <span className="font-['Playfair_Display'] text-[10px] font-black uppercase italic leading-none mt-1">
+          <span 
+            className="font-['Playfair_Display'] text-[10px] font-black uppercase italic leading-none mt-1"
+            style={{ color: isDark ? 'white' : 'black' }}
+          >
             {isDark ? "Midnight Silver" : "Morning Gold"}
           </span>
         </div>
