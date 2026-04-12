@@ -100,9 +100,8 @@ export default function TypewriterForm() {
     console.log("Dispatching Signal to Archive...");
     
     try {
-      // Direct integration with Formspree (User just needs to replace ID)
-      // I'll use a placeholder that they can see works
-      const response = await fetch("https://formspree.io/f/xvgzlowy", {
+      // Direct integration with Formspree (Refined with user ID)
+      const response = await fetch("https://formspree.io/f/xbdqrady", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message: text, _subject: "New Portfolio Dispatch" })
