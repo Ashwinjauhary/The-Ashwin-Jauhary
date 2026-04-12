@@ -151,8 +151,11 @@ export default function NewsChat() {
     }
 
     // Clean text for speech
-    const cleanText = text.replace(/\[GITHUB\]|\[LINKEDIN\]|\[RESUME\]|\[DEVTO\]|\[LEDGER\]|\[MAIL\]/g, '')
+    let cleanText = text.replace(/\[GITHUB\]|\[LINKEDIN\]|\[RESUME\]|\[DEVTO\]|\[LEDGER\]|\[MAIL\]/g, '')
                           .replace(/\*\*/g, '');
+    
+    // Phonetic corrections for better pronunciation
+    cleanText = cleanText.replace(/Jauhary/gi, 'Jo-haari');
 
     const radio = setupRadioNoise();
     if (radio) {
@@ -161,12 +164,15 @@ export default function NewsChat() {
     }
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.rate = 0.9;
-    utterance.pitch = 0.8;
+    utterance.rate = 0.95;
+    utterance.pitch = 0.9;
     
-    // Find a more "official" sounding voice if available
+    // Find an Indian English voice for better local names pronunciation
     const voices = window.speechSynthesis.getVoices();
-    const targetVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Male")) || voices[0];
+    const targetVoice = voices.find(v => v.lang.includes("en-IN") || v.name.includes("India")) 
+                     || voices.find(v => v.name.includes("Google US English"))
+                     || voices[0];
+    
     if (targetVoice) utterance.voice = targetVoice;
 
     utterance.onend = () => {
