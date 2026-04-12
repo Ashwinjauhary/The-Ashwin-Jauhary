@@ -23,7 +23,7 @@ export const profile = {
 export const about = {
   intro: "I'm Ashwin Jauhary, a Full-Stack Developer specializing in frontend architectures and AI-integrated systems. Currently a BCA student at PSIT Kanpur (GPA: 7.0/10.0), I build products that solve real-world problems with high-fidelity design.\n\nMy journey is fueled by a passion for clean code, system scalability, and business strategy. From custom programming languages like KanpScript to multi-AI audit tools like DevRoast-Ai, I thrive on complex technical challenges. I also serve as a Lead Technical Partner at Catalyst Crew — an independent developer-led collective — where I engineered the entire web infrastructure and led product development for early-stage clients. Additionally, I serve as President of the Codester Club at PSIT.",
   quick: [
-    { icon: "🎓", label: "Education", value: "BCA @ PSIT Kanpur (2023–2026) · GPA: 7.0/10.0" },
+    { icon: "🎓", label: "Education", value: "BCA @ PSIT Kanpur (2024–2027) · GPA: 7.0/10.0" },
     { icon: "🏢", label: "Role", value: "Lead @ Catalyst Crew · President @ Codester Club" },
     { icon: "🚀", label: "Focus", value: "Full-Stack, AI Systems & Product Engineering" },
     { icon: "📈", label: "Goal", value: "Scaling Products, Building Systems & Investments" },
