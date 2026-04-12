@@ -43,11 +43,11 @@ export default function Home() {
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
 
   return (
-    <div className="max-w-[1400px] mx-auto px-4 py-8 min-h-screen relative font-sans text-[#1a1a1a]">
+    <div className="max-w-[1400px] mx-auto px-4 py-8 min-h-screen relative font-sans text-foreground transition-colors duration-500">
       {/* ===== MASTHEAD ===== */}
-      <header className="flex flex-col items-center mb-6 pb-2 border-b-[6px] border-black border-double">
+      <header className="flex flex-col items-center mb-6 pb-2 border-b-[6px] border-foreground border-double">
         {/* Top Info Bar */}
-        <div className="w-full flex flex-col md:flex-row justify-between items-center md:items-end border-y-2 border-black py-2 px-2 text-xs uppercase font-bold tracking-widest mb-6">
+        <div className="w-full flex flex-col md:flex-row justify-between items-center md:items-end border-y-2 border-foreground py-2 px-2 text-xs uppercase font-bold tracking-widest mb-6 px-4">
           <div className="hidden md:flex flex-col text-center md:text-left mb-2 md:mb-0">
             <span>VOL. I ... No. 1</span>
             <span className="block italic font-['Lora'] text-[10px] normal-case mt-1">Established 2026</span>
@@ -73,7 +73,7 @@ export default function Home() {
             <Printer size={12} />
             <span>Clip to PDF</span>
           </button>
-          <h1 className="text-[2.5rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[7.8rem] leading-none mb-2 tracking-tighter font-['Playfair_Display'] font-black uppercase antialiased whitespace-nowrap" style={{ textShadow: "1px 1px 0px rgba(0,0,0,0.15)"}}>
+          <h1 className="text-[2.5rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[7.8rem] leading-none mb-2 tracking-tighter font-['Playfair_Display'] font-black uppercase antialiased whitespace-nowrap text-foreground" style={{ textShadow: "1px 1px 0px rgba(0,0,0,0.15)"}}>
             The Ashwin Jauhary
           </h1>
         </div>
@@ -83,20 +83,20 @@ export default function Home() {
       <main className="grid grid-cols-1 md:grid-cols-12 gap-8 gap-y-12">
 
         {/* LEAD STORY (Cols 1-8) */}
-        <article className="md:col-span-8 pr-0 md:pr-8 md:border-r-[1.5px] border-black/40">
+        <article className="md:col-span-8 pr-0 md:pr-8 md:border-r-[1.5px] border-foreground/40">
 
-          <h2 className="font-['Playfair_Display'] text-4xl sm:text-5xl md:text-[4rem] font-black leading-[0.9] mb-6 tracking-tight uppercase text-center border-b-[3px] border-black pb-6">
+          <h2 className="font-['Playfair_Display'] text-4xl sm:text-5xl md:text-[4rem] font-black leading-[0.9] mb-6 tracking-tight uppercase text-center border-b-[3px] border-foreground pb-6 text-foreground">
             Architect Unleashes Premium Web Infrastructure
           </h2>
 
-          <div className="flex items-center justify-between mb-6 border-b border-black/20 pb-2 italic font-['Lora'] text-sm">
+          <div className="flex items-center justify-between mb-6 border-b border-foreground/20 pb-2 italic font-['Lora'] text-sm">
             <span className="flex items-center gap-3">
               <Image
                 src="/Avatar.png"
                 alt="Ashwin Jauhary"
                 width={40}
                 height={40}
-                className="rounded-full grayscale contrast-125 border-2 border-black object-cover"
+                className="rounded-full grayscale contrast-125 border-2 border-foreground object-cover"
                 style={{ width: 40, height: 40 }}
               />
               By <strong className="font-sans uppercase tracking-widest text-xs not-italic">ASHWIN JAUHARY</strong>
@@ -144,8 +144,8 @@ export default function Home() {
           <BureauOfRecords />
 
           {/* ABOUT ADVERT */}
-          <div className="border-[3px] border-black p-4 relative bg-white/40 shadow-[4px_4px_0_#1a1a1a]">
-            <h3 className="font-['Playfair_Display'] text-2xl font-black text-center mb-3 uppercase border-b-2 border-black pb-2">
+          <div className="border-[3px] border-foreground p-4 relative bg-foreground/5 shadow-[4px_4px_0_#000] dark:shadow-[4px_4px_0_#333]">
+            <h3 className="font-['Playfair_Display'] text-2xl font-black text-center mb-3 uppercase border-b-2 border-foreground pb-2">
               About The Author
             </h3>
             <div className="font-['Lora'] text-justify-news space-y-3 text-sm">
@@ -153,7 +153,7 @@ export default function Home() {
                 <strong>ASHWIN JAUHARY</strong> is a Full-Stack Developer and current BCA scholar at PSIT Kanpur (Class of 2027). He is known exclusively for blending extreme deep-tech infrastructure with an impeccable eye for print and digital design.
               </p>
 
-              <blockquote className="my-4 border-y-2 border-black py-3 font-['Playfair_Display'] text-xl leading-snug italic text-center px-4 bg-black/5">
+              <blockquote className="my-4 border-y-2 border-foreground py-3 font-['Playfair_Display'] text-xl leading-snug italic text-center px-4 bg-foreground/5 text-foreground">
                 &quot;Designing the deep-tech infrastructure that powers our impending future.&quot;
               </blockquote>
 
@@ -188,12 +188,12 @@ export default function Home() {
         </aside>
 
         {/* BOTTOM SECTION: PROJECTS AS CLASSIFIEDS */}
-        <section className="col-span-full border-t-[6px] border-double border-black pt-6">
-          <div className="flex justify-between items-end border-b-2 border-black pb-2 mb-6">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-5xl font-black tracking-widest uppercase">
+        <section className="col-span-full border-t-[6px] border-double border-foreground pt-6">
+          <div className="flex justify-between items-end border-b-2 border-foreground pb-2 mb-6">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-5xl font-black tracking-widest uppercase text-foreground">
               Classified Implementations
             </h2>
-            <span className="font-sans text-xs font-bold uppercase tracking-widest hidden sm:block">Section C</span>
+            <span className="font-sans text-xs font-bold uppercase tracking-widest hidden sm:block text-foreground/40">Section C</span>
           </div>
 
           <div className="columns-1 sm:columns-2 lg:columns-4 gap-8 space-y-8">
@@ -224,22 +224,22 @@ export default function Home() {
         </section>
 
         {/* CONTACT ADVERTISEMENT */}
-        <section className="col-span-full my-8 border-[5px] border-black p-2 bg-[#f0ebd9]">
-          <div className="border border-black p-8 sm:p-12 text-center bg-[url('https://www.transparenttextures.com/patterns/diagonal-stripes.png')] bg-opacity-20 flex flex-col items-center justify-center">
-            <div className="bg-[#f5f0e8] p-6 sm:p-10 w-full max-w-4xl border-2 border-black shadow-[8px_8px_0px_#1a1a1a]">
-              <p className="font-sans font-bold text-sm tracking-widest uppercase mb-4 border-b border-black pb-2 inline-block">Employment Opportunity</p>
-              <h2 className="font-['Playfair_Display'] text-4xl sm:text-6xl font-black uppercase mb-4 leading-none">Wanted: Visionaries</h2>
-              <p className="font-['Playfair_Display'] text-xl sm:text-2xl italic mb-8 max-w-2xl mx-auto">
+        <section className="col-span-full my-8 border-[5px] border-foreground p-2 bg-foreground/5 transition-colors duration-500">
+          <div className="border border-foreground p-8 sm:p-12 text-center bg-[url('https://www.transparenttextures.com/patterns/diagonal-stripes.png')] bg-opacity-20 flex flex-col items-center justify-center">
+            <div className="bg-background p-6 sm:p-10 w-full max-w-4xl border-2 border-foreground shadow-[8px_8px_0px_#000] dark:shadow-[8px_8px_0px_#333] transition-colors duration-500">
+              <p className="font-sans font-bold text-sm tracking-widest uppercase mb-4 border-b border-foreground pb-2 inline-block text-foreground">Employment Opportunity</p>
+              <h2 className="font-['Playfair_Display'] text-4xl sm:text-6xl font-black uppercase mb-4 leading-none text-foreground">Wanted: Visionaries</h2>
+              <p className="font-['Playfair_Display'] text-xl sm:text-2xl italic mb-8 max-w-2xl mx-auto text-foreground/80">
                 Currently accepting inquiries for high-stakes engineering & premium frontend design positions.
               </p>
-              <div className="font-sans font-bold uppercase tracking-widest text-lg sm:text-xl border-y-2 border-black py-4 mb-8">
-                Send Telegrams To: <a href="mailto:ashwin2431333@gmail.com" className="bg-black text-[#f5f0e8] px-3 py-1 ml-2 hover:opacity-80 transition-opacity">ashwin2431333@gmail.com</a>
+              <div className="font-sans font-bold uppercase tracking-widest text-lg sm:text-xl border-y-2 border-foreground py-4 mb-8 text-foreground">
+                Send Telegrams To: <a href="mailto:ashwin2431333@gmail.com" className="bg-foreground text-background px-3 py-1 ml-2 hover:opacity-80 transition-opacity">ashwin2431333@gmail.com</a>
               </div>
-              <div className="flex justify-center gap-12 text-[#1a1a1a]">
-                <a href={profile.github} target="_blank" className="hover:scale-110 transition-transform p-2 border-2 border-black rounded-full" title="Github">
+              <div className="flex justify-center gap-12 text-foreground">
+                <a href={profile.github} target="_blank" className="hover:scale-110 transition-transform p-2 border-2 border-foreground rounded-full" title="Github">
                   <GithubIcon size={24} />
                 </a>
-                <a href={profile.linkedin} target="_blank" className="hover:scale-110 transition-transform p-2 border-2 border-black rounded-full" title="LinkedIn">
+                <a href={profile.linkedin} target="_blank" className="hover:scale-110 transition-transform p-2 border-2 border-foreground rounded-full" title="LinkedIn">
                   <LinkedinIcon size={24} />
                 </a>
               </div>

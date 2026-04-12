@@ -220,35 +220,36 @@ export default function NewsChat() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 font-sans">
+      {/* NewsChat updates */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-black text-[#f5f0e8] p-4 rounded-full shadow-[6px_6px_0_rgba(0,0,0,0.3)] hover:scale-110 hover:-translate-y-1 transition-all border-2 border-black group"
+          className="bg-foreground text-background p-4 rounded-full shadow-[6px_6px_0_rgba(0,0,0,0.3)] dark:shadow-[6px_6px_0_rgba(255,255,255,0.1)] hover:scale-110 hover:-translate-y-1 transition-all border-2 border-foreground group"
         >
           <Newspaper className="w-8 h-8 group-hover:rotate-12 transition-transform" />
-          <span className="absolute -top-1 -right-1 bg-[#C0392B] text-[10px] px-1.5 py-0.5 rounded-full animate-pulse">LATEST</span>
+          <span className="absolute -top-1 -right-1 bg-accent text-[10px] px-1.5 py-0.5 rounded-full animate-pulse text-white">LATEST</span>
         </button>
       )}
 
       {isOpen && (
-        <div className="bg-[#f0ebd9] border-[3px] border-black w-[320px] sm:w-[400px] h-[500px] flex flex-col shadow-[12px_12px_0_rgba(0,0,0,0.2)]">
-          <div className="bg-black text-[#f5f0e8] p-4 flex justify-between items-center border-b-2 border-black uppercase tracking-widest font-black text-sm">
+        <div className="bg-background border-[3px] border-foreground w-[320px] sm:w-[400px] h-[500px] flex flex-col shadow-[12px_12px_0_rgba(0,0,0,0.2)] dark:shadow-[12px_12px_0_rgba(0,0,0,0.5)] transition-colors duration-500">
+          <div className="bg-foreground text-background p-4 flex justify-between items-center border-b-2 border-foreground uppercase tracking-widest font-black text-sm">
             <div className="flex items-center gap-2">
-              <span className="bg-[#C0392B] p-1 rounded-sm"><Newspaper size={14} /></span>
+              <span className="bg-accent p-1 rounded-sm text-white"><Newspaper size={14} /></span>
               <span>The Dispatcher</span>
             </div>
-            <button onClick={() => setIsOpen(false)} className="hover:text-[#C0392B] transition-colors">
+            <button onClick={() => setIsOpen(false)} className="hover:text-accent transition-colors">
               <ChevronDown />
             </button>
           </div>
 
           <div
             ref={scrollRef}
-            className="flex-1 overflow-y-auto p-4 space-y-4 font-['Lora'] text-[15px] bg-[#f0ebd9] bg-[url('https://www.transparenttextures.com/patterns/old-paper.png')]"
+            className="flex-1 overflow-y-auto p-4 space-y-4 font-['Lora'] text-[15px] bg-background bg-[url('https://www.transparenttextures.com/patterns/old-paper.png')] dark:opacity-90"
           >
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} w-full`}>
-                <div className={`max-w-[85%] p-3 border-2 border-black shadow-[4px_4px_0_rgba(0,0,0,1)] overflow-hidden relative ${m.role === 'user' ? 'bg-[#1a1a1a] text-[#f5f0e8]' : 'bg-white'
+                <div className={`max-w-[85%] p-3 border-2 border-foreground shadow-[4px_4px_0_rgba(0,0,0,1)] dark:shadow-[4px_4px_0_rgba(255,255,255,0.1)] overflow-hidden relative ${m.role === 'user' ? 'bg-foreground text-background' : 'bg-background text-foreground'
                   }`}>
                   {m.role === 'assistant' && (
                     <button
