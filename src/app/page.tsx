@@ -3,8 +3,8 @@ import { ExternalLink, Printer } from "lucide-react";
 import Image from "next/image";
 import { profile, projects } from "@/data";
 
-// Stable reference numbers per project (not random on each render)
-const refNumbers = projects.map(() => String(Math.floor(Math.random() * 9000) + 1000));
+// Deterministic reference numbers based on project order to avoid hydration mismatch
+const refNumbers = projects.map((_, i) => String(1001 + i * 137).padStart(4, '0'));
 
 const GithubIcon = ({ size = 16 }: { size?: number }) => (
   <svg
