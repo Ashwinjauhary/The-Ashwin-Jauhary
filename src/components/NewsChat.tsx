@@ -4,10 +4,15 @@ import { useState, useRef, useEffect } from "react";
 import { Send, Newspaper, ChevronDown } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
-const getChildrenText = (children: any): string => {
-  if (typeof children === 'string') return children;
+const getChildrenText = (children: React.ReactNode): string => {
+  if (typeof children === 'string' || typeof children === 'number') return String(children);
   if (Array.isArray(children)) return children.map(getChildrenText).join('');
-  if (children?.props?.children) return getChildrenText(children.props.children);
+  if (children && typeof children === 'object' && 'props' in (children as object)) {
+    const component = children as React.ReactElement<{ children?: React.ReactNode }>;
+    if (component.props && component.props.children) {
+      return getChildrenText(component.props.children);
+    }
+  }
   return '';
 };
 
@@ -53,7 +58,26 @@ const renderWithLogos = (text: string) => {
     if (part.startsWith('[') && part.endsWith(']')) {
       return <PlatformBadge key={i} type={part} />;
     }
-    return <span key={i} className="inline align-middle">{part}</span>;
+    
+    // Split text further for links and emails
+    const textParts = part.split(/(https?:\/\/[^\s\][)]+|mailto:[^\s\][)]+|\/[^\s]+\.pdf|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g);
+    return textParts.map((subPart, j) => {
+      if (subPart.match(/https?:\/\/[^\s\][)]+|mailto:[^\s\][)]+|\/[^\s]+\.pdf|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)) {
+        const isEmail = subPart.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+        return (
+          <a 
+            key={`${i}-${j}`} 
+            href={isEmail ? `mailto:${subPart}` : subPart} 
+            target={isEmail ? "_self" : "_blank"} 
+            rel="noopener noreferrer"
+            className="text-[#C0392B] underline hover:text-black transition-colors font-bold break-words"
+          >
+            {subPart}
+          </a>
+        );
+      }
+      return <span key={`${i}-${j}`} className="inline align-middle break-words">{subPart}</span>;
+    });
   });
 };
 
@@ -93,7 +117,7 @@ export default function NewsChat() {
       } else {
         setMessages((prev) => [...prev, { role: "assistant", content: "The telegraph lines are down! (Server error)" }]);
       }
-    } catch (err) {
+    } catch {
       setMessages((prev) => [...prev, { role: "assistant", content: "Signal lost in the paper archives. Please try again." }]);
     } finally {
       setIsLoading(false);
@@ -129,29 +153,29 @@ export default function NewsChat() {
             className="flex-1 overflow-y-auto p-4 space-y-4 font-['Lora'] text-[15px] bg-[#f0ebd9] bg-[url('https://www.transparenttextures.com/patterns/old-paper.png')]"
           >
             {messages.map((m, i) => (
-              <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] p-3 border-2 border-black shadow-[4px_4px_0_rgba(0,0,0,1)] ${m.role === 'user' ? 'bg-[#1a1a1a] text-[#f5f0e8]' : 'bg-white'
+              <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} w-full`}>
+                <div className={`max-w-[85%] p-3 border-2 border-black shadow-[4px_4px_0_rgba(0,0,0,1)] overflow-hidden ${m.role === 'user' ? 'bg-[#1a1a1a] text-[#f5f0e8]' : 'bg-white'
                   }`}>
-                  <div className="prose prose-sm prose-stone max-w-none text-balance">
+                  <div className="prose prose-sm prose-stone max-w-none break-words">
                     <ReactMarkdown
                       components={{
-                        h3: ({ node, ...props }) => <h3 className="font-black text-sm uppercase mt-3 mb-1 border-b border-black/20" {...props} />,
-                        ul: ({ node, ...props }) => <ul className="list-disc pl-4 space-y-1 my-2" {...props} />,
-                        li: ({ node, ...props }) => {
+                        h3: ({ ...props }) => <h3 className="font-black text-sm uppercase mt-3 mb-1 border-b border-black/20" {...props} />,
+                        ul: ({ ...props }) => <ul className="list-disc pl-4 space-y-1 my-2" {...props} />,
+                        li: ({ ...props }) => {
                           const content = getChildrenText(props.children);
                           return (
-                            <li className="leading-tight mb-2 list-none flex items-start gap-2">
+                            <li className="leading-tight mb-2 list-none flex items-start gap-2 overflow-hidden w-full">
                               <span className="mt-1 text-black shrink-0 text-[10px]">•</span>
-                              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 min-w-0">
+                              <div className="flex-1 min-w-0">
                                 {renderWithLogos(content)}
                               </div>
                             </li>
                           );
                         },
-                        p: ({ node, ...props }) => {
+                        p: ({ ...props }) => {
                           const content = getChildrenText(props.children);
                           return (
-                            <p className="mb-2 last:mb-0 flex flex-wrap items-center gap-x-2 gap-y-1 min-w-0 font-['Lora']">
+                            <p className="mb-2 last:mb-0 block w-full font-['Lora'] break-words">
                               {renderWithLogos(content)}
                             </p>
                           );
