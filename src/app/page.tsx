@@ -2,6 +2,7 @@
 import { ExternalLink, Printer } from "lucide-react";
 import Image from "next/image";
 import { profile, projects } from "@/data";
+import BureauOfRecords from "@/components/BureauOfRecords";
 
 // Deterministic reference numbers based on project order to avoid hydration mismatch
 const refNumbers = projects.map((_, i) => String(1001 + i * 137).padStart(4, '0'));
@@ -139,6 +140,8 @@ export default function Home() {
 
         {/* SECONDARY COLUMN - COL 9-12 */}
         <aside className="md:col-span-4 space-y-8">
+          
+          <BureauOfRecords />
 
           {/* ABOUT ADVERT */}
           <div className="border-[3px] border-black p-4 relative bg-white/40 shadow-[4px_4px_0_#1a1a1a]">
