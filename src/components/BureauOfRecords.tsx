@@ -15,18 +15,17 @@ export default function BureauOfRecords() {
 
     const filteredProjects = projects.filter(p => 
       p.title.toLowerCase().includes(q) || 
-      p.description.toLowerCase().includes(q) || 
       p.tech.some(t => t.toLowerCase().includes(q))
-    ).map(p => ({ title: p.title, description: p.description, type: 'Project' as const, href: p.live }));
+    ).slice(0, 3).map(p => ({ title: p.title, description: p.description, type: 'Project' as const, href: p.live }));
 
     const filteredSkills = skills.flatMap(s => s.items).filter(s => 
       s.toLowerCase().includes(q)
-    ).slice(0, 5).map(s => ({ title: s, description: 'Strategic Technical Skill', type: 'Skill' as const, href: '/portfolio' }));
+    ).slice(0, 3).map(s => ({ title: s, description: 'Strategic Technical Skill', type: 'Skill' as const, href: '/portfolio' }));
 
     const filteredCerts = certificates.filter(c => 
       c.title.toLowerCase().includes(q) || 
       c.org.toLowerCase().includes(q)
-    ).map(c => ({ title: c.title, description: c.org, type: 'Certificate' as const, href: '/resume' }));
+    ).slice(0, 2).map(c => ({ title: c.title, description: c.org, type: 'Certificate' as const, href: '/resume' }));
 
     return [...filteredProjects, ...filteredSkills, ...filteredCerts];
   }, [query]);
@@ -89,7 +88,7 @@ export default function BureauOfRecords() {
                       initial={{ x: -20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ delay: i * 0.05 }}
-                      className="group flex items-start gap-3 p-2 bg-[#f5f0e8] border border-black/40 hover:border-black hover:bg-white transition-all cursor-pointer block"
+                      className="group flex items-start gap-3 p-2 bg-[#f5f0e8] border border-black/40 hover:border-black hover:bg-white transition-all cursor-pointer"
                     >
                       <div className="mt-0.5">
                         {res.type === 'Project' && <Folder size={14} className="text-black/60" />}
