@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, Newspaper, ChevronDown } from "lucide-react";
+import { Send, Newspaper, ChevronDown, Volume2, Square } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 const getChildrenText = (children: React.ReactNode): string => {
@@ -87,6 +87,40 @@ const renderWithLogos = (text: string) => {
   });
 };
 
+const setupRadioNoise = () => {
+  if (typeof window === "undefined") return null;
+  const AudioContext = window.AudioContext || (window as any).webkitAudioContext; // eslint-disable-line @typescript-eslint/no-explicit-any
+  const ctx = new AudioContext();
+  
+  // Create white noise
+  const bufferSize = 2 * ctx.sampleRate;
+  const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const output = noiseBuffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    output[i] = Math.random() * 2 - 1;
+  }
+
+  const whiteNoise = ctx.createBufferSource();
+  whiteNoise.buffer = noiseBuffer;
+  whiteNoise.loop = true;
+
+  // Bandpass filter for that "thin" radio sound
+  const filter = ctx.createBiquadFilter();
+  filter.type = "bandpass";
+  filter.frequency.value = 1500;
+  filter.Q.value = 1;
+
+  // Gain for volume
+  const gainNode = ctx.createGain();
+  gainNode.gain.value = 0.05; // Subtle crackle
+
+  whiteNoise.connect(filter);
+  filter.connect(gainNode);
+  gainNode.connect(ctx.destination);
+
+  return { ctx, whiteNoise, gainNode };
+};
+
 export default function NewsChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([
@@ -94,7 +128,54 @@ export default function NewsChat() {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isPlayingIdx, setIsPlayingIdx] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const radioRef = useRef<{ ctx: AudioContext; whiteNoise: AudioBufferSourceNode; gainNode: GainNode } | null>(null);
+
+  const stopRadio = () => {
+    window.speechSynthesis.cancel();
+    if (radioRef.current) {
+      radioRef.current.gainNode.gain.exponentialRampToValueAtTime(0.0001, radioRef.current.ctx.currentTime + 0.5);
+      setTimeout(() => {
+        radioRef.current?.whiteNoise.stop();
+        radioRef.current = null;
+      }, 600);
+    }
+    setIsPlayingIdx(null);
+  };
+
+  const playRadio = (text: string, idx: number) => {
+    if (isPlayingIdx !== null) {
+      stopRadio();
+      if (isPlayingIdx === idx) return;
+    }
+
+    // Clean text for speech
+    const cleanText = text.replace(/\[GITHUB\]|\[LINKEDIN\]|\[RESUME\]|\[DEVTO\]|\[LEDGER\]|\[MAIL\]/g, '')
+                          .replace(/\*\*/g, '');
+
+    const radio = setupRadioNoise();
+    if (radio) {
+      radio.whiteNoise.start();
+      radioRef.current = radio;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.rate = 0.9;
+    utterance.pitch = 0.8;
+    
+    // Find a more "official" sounding voice if available
+    const voices = window.speechSynthesis.getVoices();
+    const targetVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Male")) || voices[0];
+    if (targetVoice) utterance.voice = targetVoice;
+
+    utterance.onend = () => {
+      stopRadio();
+    };
+
+    setIsPlayingIdx(idx);
+    window.speechSynthesis.speak(utterance);
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -160,9 +241,18 @@ export default function NewsChat() {
           >
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} w-full`}>
-                <div className={`max-w-[85%] p-3 border-2 border-black shadow-[4px_4px_0_rgba(0,0,0,1)] overflow-hidden ${m.role === 'user' ? 'bg-[#1a1a1a] text-[#f5f0e8]' : 'bg-white'
+                  <div className={`max-w-[85%] p-3 border-2 border-black shadow-[4px_4px_0_rgba(0,0,0,1)] overflow-hidden relative ${m.role === 'user' ? 'bg-[#1a1a1a] text-[#f5f0e8]' : 'bg-white'
                   }`}>
-                  <div className="prose prose-sm prose-stone max-w-none wrap-break-word">
+                    {m.role === 'assistant' && (
+                      <button 
+                        onClick={() => playRadio(m.content, i)}
+                        className={`absolute top-1 right-1 p-1 hover:bg-black/5 transition-colors ${isPlayingIdx === i ? 'text-[#C0392B] animate-pulse' : 'text-black/30'}`}
+                        title="Radio Broadcast"
+                      >
+                        {isPlayingIdx === i ? <Square size={14} fill="currentColor" /> : <Volume2 size={14} />}
+                      </button>
+                    )}
+                    <div className="prose prose-sm prose-stone max-w-none wrap-break-word">
                     <ReactMarkdown
                       components={{
                         h3: ({ ...props }) => <h3 className="font-black text-sm uppercase mt-3 mb-1 border-b border-black/20" {...props} />,
