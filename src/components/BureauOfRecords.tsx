@@ -17,16 +17,16 @@ export default function BureauOfRecords() {
       p.title.toLowerCase().includes(q) || 
       p.description.toLowerCase().includes(q) || 
       p.tech.some(t => t.toLowerCase().includes(q))
-    ).map(p => ({ ...p, type: 'Project' }));
+    ).map(p => ({ title: p.title, description: p.description, type: 'Project' as const }));
 
     const filteredSkills = skills.flatMap(s => s.items).filter(s => 
       s.toLowerCase().includes(q)
-    ).slice(0, 5).map(s => ({ title: s, type: 'Skill' }));
+    ).slice(0, 5).map(s => ({ title: s, description: '', type: 'Skill' as const }));
 
     const filteredCerts = certificates.filter(c => 
       c.title.toLowerCase().includes(q) || 
       c.org.toLowerCase().includes(q)
-    ).map(c => ({ title: c.title, org: c.org, type: 'Certificate' }));
+    ).map(c => ({ title: c.title, description: c.org, type: 'Certificate' as const }));
 
     return [...filteredProjects, ...filteredSkills, ...filteredCerts];
   }, [query]);
@@ -78,7 +78,7 @@ export default function BureauOfRecords() {
             transition={{ type: "spring", damping: 20, stiffness: 100 }}
             className="overflow-hidden mt-4"
           >
-            <div className="bg-[#e5dfd3] border-t-2 border-black/10 p-4 min-h-[100px] border-x-2 border-b-2 border-black shadow-[inner_0_4px_0_rgba(0,0,0,0.1)]">
+            <div className="bg-[#e5dfd3] border-2 border-black p-4 min-h-[100px] shadow-[inner_0_4px_0_rgba(0,0,0,0.1)]">
               {results.length > 0 ? (
                 <div className="space-y-3">
                   {results.slice(0, 5).map((res, i) => (
@@ -100,9 +100,9 @@ export default function BureauOfRecords() {
                           {res.type === 'Project' && <ExternalLink size={10} className="text-black/40" />}
                         </div>
                         <h4 className="text-[11px] font-black uppercase tracking-tight leading-none mb-1">
-                          {'title' in res ? res.title : ''}
+                          {res.title}
                         </h4>
-                        {'description' in res && (
+                        {res.description && (
                           <p className="text-[9px] text-black/60 font-serif leading-tight line-clamp-1">
                             {res.description}
                           </p>
