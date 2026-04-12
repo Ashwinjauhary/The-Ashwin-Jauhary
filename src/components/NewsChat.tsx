@@ -59,9 +59,15 @@ const renderWithLogos = (text: string) => {
       return <PlatformBadge key={i} type={part} />;
     }
     
-    // Split text further for links and emails
-    const textParts = part.split(/(https?:\/\/[^\s\][)]+|mailto:[^\s\][)]+|\/[^\s]+\.pdf|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g);
+    // Split text further for links, emails, and bold markdown
+    const textParts = part.split(/(https?:\/\/[^\s\][)]+|mailto:[^\s\][)]+|\/[^\s]+\.pdf|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|\*\*[^*]+\*\*)/g);
     return textParts.map((subPart, j) => {
+      // Handle Bold
+      if (subPart.startsWith('**') && subPart.endsWith('**')) {
+        return <strong key={`${i}-${j}`} className="font-bold">{subPart.slice(2, -2)}</strong>;
+      }
+      
+      // Check if it's a URL or Email
       if (subPart.match(/https?:\/\/[^\s\][)]+|mailto:[^\s\][)]+|\/[^\s]+\.pdf|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)) {
         const isEmail = subPart.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
         return (
