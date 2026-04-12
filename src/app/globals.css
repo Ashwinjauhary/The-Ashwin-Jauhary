@@ -76,8 +76,8 @@
 
 @media print {
   @page {
-    margin: 1cm !important;
-    size: auto;
+    margin: 0.5cm !important;
+    size: A4;
   }
   
   body {
@@ -85,9 +85,10 @@
     color: black !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    font-size: 10pt;
   }
 
-  /* Hide UI elements and paper texture */
+  /* Hide UI elements */
   .paper-texture, 
   .fixed, 
   button, 
@@ -96,39 +97,73 @@
     display: none !important;
   }
 
-  /* Force single column or adjusted grid for print */
+  /* Optimize layout for density */
   main {
     display: block !important;
+    width: 100% !important;
   }
 
   .grid {
-    display: block !important;
+    display: grid !important;
+    grid-template-columns: 2fr 1fr !important;
+    gap: 1.5rem !important;
   }
 
+  article {
+    border-right: 1px solid black !important;
+    padding-right: 1.5rem !important;
+  }
+
+  section.col-span-full {
+    grid-column: 1 / -1 !important;
+    margin-top: 2rem !important;
+  }
+
+  /* Fix white space and page breaks */
   article, aside, section {
-    width: 100% !important;
-    float: none !important;
-    margin-bottom: 2rem !important;
-    page-break-inside: avoid;
-    border-right: none !important;
+    page-break-inside: auto !important;
   }
 
-  .border-double, .border-double-heavy {
-    border-color: black !important;
+  .shadow-none-print {
+    box-shadow: none !important;
+    border: 2px solid black !important;
+  }
+
+  /* Ensure the headline is large and centered */
+  h1 {
+    font-size: 48pt !important;
+    margin-bottom: 0.5rem !important;
+    text-align: center !important;
+  }
+
+  /* Fix colors for 'Send Telegrams' */
+  .bg-black {
+    background-color: #1a1a1a !important;
+    color: white !important;
   }
 
   a {
-    text-decoration: none !important;
     color: black !important;
+    text-decoration: underline !important;
+  }
+
+  .bg-black a {
+    color: white !important;
+  }
+
+  /* Force classifieds to display well */
+  .columns-1.md\:columns-3 {
+    columns: 2 !important;
+    column-gap: 1rem !important;
+  }
+
+  .break-inside-avoid {
+    page-break-inside: avoid !important;
+    margin-bottom: 1rem !important;
   }
 
   .halftone-image {
-    filter: none !important;
-    mix-blend-mode: normal !important;
-  }
-
-  /* Ensure text is readable */
-  p, h1, h2, h3 {
-    color: black !important;
+    filter: grayscale(100%) !important;
+    mix-blend-mode: multiply !important;
   }
 }
