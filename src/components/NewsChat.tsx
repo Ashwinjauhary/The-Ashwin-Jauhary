@@ -131,75 +131,86 @@ export default function NewsChat() {
   const [isPlayingIdx, setIsPlayingIdx] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const radioRef = useRef<{ ctx: AudioContext; whiteNoise: AudioBufferSourceNode; gainNode: GainNode } | null>(null);
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const stopRadio = () => {
     window.speechSynthesis.cancel();
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current = null;
+    }
+    
     if (radioRef.current) {
       radioRef.current.gainNode.gain.exponentialRampToValueAtTime(0.0001, radioRef.current.ctx.currentTime + 0.5);
+      const tempRef = radioRef.current;
       setTimeout(() => {
-        radioRef.current?.whiteNoise.stop();
-        radioRef.current = null;
+        tempRef.whiteNoise.stop();
       }, 600);
+      radioRef.current = null;
     }
     setIsPlayingIdx(null);
   };
 
-  const playRadio = (text: string, idx: number) => {
+  const playRadio = async (text: string, idx: number) => {
     if (isPlayingIdx !== null) {
       stopRadio();
       if (isPlayingIdx === idx) return;
     }
 
-    // Clean text for speech
+    // Clean text
     let cleanText = text.replace(/\[GITHUB\]|\[LINKEDIN\]|\[RESUME\]|\[DEVTO\]|\[LEDGER\]|\[MAIL\]/g, '')
       .replace(/\*\*/g, '');
-
-    // Phonetic corrections for absolute best pronunciation
     cleanText = cleanText.replace(/Jauhary/gi, 'Jo-haari');
 
+    // Start Radio Static
     const radio = setupRadioNoise();
     if (radio) {
       radio.whiteNoise.start();
-
-      // Add a 1940s News Alert Beep (Synthetic)
-      const beep = radio.ctx.createOscillator();
-      const beepGain = radio.ctx.createGain();
-      beep.type = "sine";
-      beep.frequency.setValueAtTime(1000, radio.ctx.currentTime);
-      beepGain.gain.setValueAtTime(0.05, radio.ctx.currentTime);
-      beepGain.gain.exponentialRampToValueAtTime(0.0001, radio.ctx.currentTime + 0.4);
-      beep.connect(beepGain);
-      beepGain.connect(radio.ctx.destination);
-      beep.start();
-      beep.stop(radio.ctx.currentTime + 0.4);
-
       radioRef.current = radio;
     }
 
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.rate = 0.92;
-    utterance.pitch = 0.85;
-
-    // Find the absolute BEST mature male Indian/Official voices
-    const voices = window.speechSynthesis.getVoices();
-    const targetVoice = 
-      // Windows High Quality
-      voices.find(v => v.name.includes("Microsoft Hemant") || v.name.includes("Microsoft Ravi")) ||
-      // General Indian Male
-      voices.find(v => (v.lang.includes("en-IN") || v.name.includes("India")) && v.name.includes("Male")) ||
-      // Formal Fallbacks
-      voices.find(v => v.name.includes("Google UK English Male")) ||
-      voices.find(v => v.name.includes("Male")) ||
-      voices[0];
-
-    if (targetVoice) utterance.voice = targetVoice;
-
-    utterance.onend = () => {
-      stopRadio();
-    };
-
     setIsPlayingIdx(idx);
-    window.speechSynthesis.speak(utterance);
+
+    try {
+      // Try ElevenLabs via our API
+      const response = await fetch("/api/voice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: cleanText }),
+      });
+
+      if (!response.ok) throw new Error("ElevenLabs API unreachable");
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      currentAudioRef.current = audio;
+
+      audio.onended = () => {
+        stopRadio();
+        URL.revokeObjectURL(url);
+      };
+
+      audio.play();
+
+    } catch (error) {
+      console.warn("Falling back to browser TTS:", error);
+      
+      // Fallback to browser TTS
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.rate = 0.92;
+      utterance.pitch = 0.85;
+
+      const voices = window.speechSynthesis.getVoices();
+      const targetVoice = voices.find(v => v.name.includes("Microsoft Hemant") || v.name.includes("Microsoft Ravi")) || voices[0];
+      if (targetVoice) utterance.voice = targetVoice;
+
+      utterance.onend = () => {
+        stopRadio();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
   };
 
   useEffect(() => {
