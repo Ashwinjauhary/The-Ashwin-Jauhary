@@ -155,7 +155,7 @@ export default function NewsChat() {
                           .replace(/\*\*/g, '');
     
     // Phonetic corrections for better pronunciation
-    cleanText = cleanText.replace(/Jauhary/gi, 'Jo-haari');
+    cleanText = cleanText.replace(/Jauhary/gi, 'Joh-ha-ree');
 
     const radio = setupRadioNoise();
     if (radio) {
@@ -167,10 +167,11 @@ export default function NewsChat() {
     utterance.rate = 0.95;
     utterance.pitch = 0.9;
     
-    // Find an Indian English voice for better local names pronunciation
+    // Prioritize Male Indian English voices
     const voices = window.speechSynthesis.getVoices();
-    const targetVoice = voices.find(v => v.lang.includes("en-IN") || v.name.includes("India")) 
-                     || voices.find(v => v.name.includes("Google US English"))
+    const targetVoice = voices.find(v => (v.lang.includes("en-IN") || v.name.includes("India")) && (v.name.includes("Male") || v.name.includes("Heir")))
+                     || voices.find(v => v.lang.includes("en-IN") || v.name.includes("India"))
+                     || voices.find(v => v.name.includes("Google US English") && v.name.includes("Male"))
                      || voices[0];
     
     if (targetVoice) utterance.voice = targetVoice;
