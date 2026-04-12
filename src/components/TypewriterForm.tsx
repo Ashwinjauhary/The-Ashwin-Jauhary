@@ -227,7 +227,7 @@ export default function TypewriterForm() {
           <motion.div 
               whileTap={{ scale: 0.9, backgroundColor: "#c0392b" }}
               onClick={() => handleKeyTap("DEL")}
-              className="col-span-2 aspect-[2/1] bg-[#442222] rounded-full border-b-4 border-black shadow-lg flex items-center justify-center cursor-pointer hover:bg-[#663333] text-[8px] font-black text-white/60 uppercase tracking-tighter"
+              className="col-span-2 aspect-2/1 bg-[#442222] rounded-full border-b-4 border-black shadow-lg flex items-center justify-center cursor-pointer hover:bg-[#663333] text-[8px] font-black text-white/60 uppercase tracking-tighter"
             >
               Delete
           </motion.div>
