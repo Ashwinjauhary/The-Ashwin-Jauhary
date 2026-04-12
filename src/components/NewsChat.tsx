@@ -154,25 +154,43 @@ export default function NewsChat() {
     let cleanText = text.replace(/\[GITHUB\]|\[LINKEDIN\]|\[RESUME\]|\[DEVTO\]|\[LEDGER\]|\[MAIL\]/g, '')
       .replace(/\*\*/g, '');
 
-    // Phonetic corrections for better pronunciation
-    cleanText = cleanText.replace(/Jauhary/gi, 'Jau-ha-ree');
+    // Phonetic corrections for absolute best pronunciation
+    cleanText = cleanText.replace(/Jauhary/gi, 'Jo-haari');
 
     const radio = setupRadioNoise();
     if (radio) {
       radio.whiteNoise.start();
+
+      // Add a 1940s News Alert Beep (Synthetic)
+      const beep = radio.ctx.createOscillator();
+      const beepGain = radio.ctx.createGain();
+      beep.type = "sine";
+      beep.frequency.setValueAtTime(1000, radio.ctx.currentTime);
+      beepGain.gain.setValueAtTime(0.05, radio.ctx.currentTime);
+      beepGain.gain.exponentialRampToValueAtTime(0.0001, radio.ctx.currentTime + 0.4);
+      beep.connect(beepGain);
+      beepGain.connect(radio.ctx.destination);
+      beep.start();
+      beep.stop(radio.ctx.currentTime + 0.4);
+
       radioRef.current = radio;
     }
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.rate = 0.92;
-    utterance.pitch = 0.85; // Lower pitch for mature men feel
+    utterance.pitch = 0.85;
 
-    // Prioritize Mature Male Indian English voices
+    // Find the absolute BEST mature male Indian/Official voices
     const voices = window.speechSynthesis.getVoices();
-    const targetVoice = voices.find(v => (v.lang.includes("en-IN") || v.name.includes("India")) && (v.name.includes("Male") || v.name.includes("Ravi")))
-      || voices.find(v => v.lang.includes("en-IN") || v.name.includes("India"))
-      || voices.find(v => (v.name.includes("Google UK English Male") || v.name.includes("Male")))
-      || voices[0];
+    const targetVoice = 
+      // Windows High Quality
+      voices.find(v => v.name.includes("Microsoft Hemant") || v.name.includes("Microsoft Ravi")) ||
+      // General Indian Male
+      voices.find(v => (v.lang.includes("en-IN") || v.name.includes("India")) && v.name.includes("Male")) ||
+      // Formal Fallbacks
+      voices.find(v => v.name.includes("Google UK English Male")) ||
+      voices.find(v => v.name.includes("Male")) ||
+      voices[0];
 
     if (targetVoice) utterance.voice = targetVoice;
 
