@@ -243,6 +243,26 @@ export const projects = [
     live: "https://ashwinjauhary.github.io/Notely/",
     description: "Cross-platform notes app in Flutter for maximum productivity. Offline-first architecture ensures all data available without connection. Advanced search, filtering, custom theming engine, and notes analytics dashboard."
   },
+  {
+    title: "BondSpace",
+    category: "Social / Security",
+    tech: ["Next.js 15", "Socket.IO", "Libsodium (E2E)", "PostgreSQL", "Capacitor 6"],
+    features: ["End-to-End Encryption", "Real-time Interactions", "Relationship Tracking", "Cross-platform"],
+    status: "Featured",
+    github: "https://github.com/Ashwinjauhary/BondSpace-Release",
+    live: "https://bond-space-release.vercel.app",
+    description: "Multi-layered encrypted communication platform for private relationships. Orchestrates real-time interactions via Socket.IO while enforcing strict E2E encryption with Libsodium. Built for maximum privacy and seamless cross-platform synchronization."
+  },
+  {
+    title: "Aura OS",
+    category: "OS Portfolio",
+    tech: ["JavaScript", "HTML5", "CSS3", "Glassmorphism", "Responsive UX"],
+    features: ["Multi-Window Architecture", "Live Taskbar", "Settings Ecosystem", "Ultra-High Fidelity UI"],
+    status: "Advanced",
+    github: "https://github.com/Ashwinjauhary/Aura-OS-Sources",
+    live: "https://aura-os-sources.vercel.app",
+    description: "Full-scale browser-based simulated operating system. Features a complex multi-window management engine, a live functional taskbar, and a customizable theme ecosystem—all rendered with a signature high-fidelity glassmorphism aesthetic."
+  },
 ];
 
 export const clientWork = [
