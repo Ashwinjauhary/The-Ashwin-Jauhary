@@ -1,4 +1,4 @@
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Printer } from "lucide-react";
 import Image from "next/image";
 import { profile, projects } from "@/data";
 
@@ -63,9 +63,18 @@ export default function Home() {
         </div>
 
         {/* Newspaper Title - Forced Single Line */}
-        <h1 className="text-[2.5rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[7.8rem] leading-none mb-2 tracking-tighter text-center font-['Playfair_Display'] font-black uppercase antialiased whitespace-nowrap" style={{ textShadow: "1px 1px 0px rgba(0,0,0,0.15)" }}>
-          The Ashwin Jauhary
-        </h1>
+        <div className="relative w-full text-center">
+          <button 
+            onClick={() => window.print()}
+            className="absolute -top-4 right-0 no-print flex items-center gap-2 bg-black text-[#f5f0e8] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#C0392B] transition-all cursor-pointer shadow-[4px_4px_0_rgba(0,0,0,0.2)] active:translate-y-0.5 active:shadow-none"
+          >
+            <Printer size={12} />
+            <span>Clip to PDF</span>
+          </button>
+          <h1 className="text-[2.5rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[7.8rem] leading-none mb-2 tracking-tighter font-['Playfair_Display'] font-black uppercase antialiased whitespace-nowrap" style={{ textShadow: "1px 1px 0px rgba(0,0,0,0.15)"}}>
+            The Ashwin Jauhary
+          </h1>
+        </div>
       </header>
 
       {/* ===== MAIN EDITORIAL GRID ===== */}

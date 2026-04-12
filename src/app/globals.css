@@ -73,3 +73,62 @@
   text-transform: uppercase;
   padding: 0 4px;
 }
+
+@media print {
+  @page {
+    margin: 1cm !important;
+    size: auto;
+  }
+  
+  body {
+    background-color: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide UI elements and paper texture */
+  .paper-texture, 
+  .fixed, 
+  button, 
+  .no-print,
+  .chatbot-container {
+    display: none !important;
+  }
+
+  /* Force single column or adjusted grid for print */
+  main {
+    display: block !important;
+  }
+
+  .grid {
+    display: block !important;
+  }
+
+  article, aside, section {
+    width: 100% !important;
+    float: none !important;
+    margin-bottom: 2rem !important;
+    page-break-inside: avoid;
+    border-right: none !important;
+  }
+
+  .border-double, .border-double-heavy {
+    border-color: black !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: black !important;
+  }
+
+  .halftone-image {
+    filter: none !important;
+    mix-blend-mode: normal !important;
+  }
+
+  /* Ensure text is readable */
+  p, h1, h2, h3 {
+    color: black !important;
+  }
+}
