@@ -70,13 +70,13 @@ const renderWithLogos = (text: string) => {
             href={isEmail ? `mailto:${subPart}` : subPart} 
             target={isEmail ? "_self" : "_blank"} 
             rel="noopener noreferrer"
-            className="text-[#C0392B] underline hover:text-black transition-colors font-bold break-words"
+            className="text-[#C0392B] underline hover:text-black transition-colors font-bold wrap-break-word"
           >
             {subPart}
           </a>
         );
       }
-      return <span key={`${i}-${j}`} className="inline align-middle break-words">{subPart}</span>;
+      return <span key={`${i}-${j}`} className="inline align-middle wrap-break-word">{subPart}</span>;
     });
   });
 };
@@ -156,7 +156,7 @@ export default function NewsChat() {
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} w-full`}>
                 <div className={`max-w-[85%] p-3 border-2 border-black shadow-[4px_4px_0_rgba(0,0,0,1)] overflow-hidden ${m.role === 'user' ? 'bg-[#1a1a1a] text-[#f5f0e8]' : 'bg-white'
                   }`}>
-                  <div className="prose prose-sm prose-stone max-w-none break-words">
+                  <div className="prose prose-sm prose-stone max-w-none wrap-break-word">
                     <ReactMarkdown
                       components={{
                         h3: ({ ...props }) => <h3 className="font-black text-sm uppercase mt-3 mb-1 border-b border-black/20" {...props} />,
@@ -175,7 +175,7 @@ export default function NewsChat() {
                         p: ({ ...props }) => {
                           const content = getChildrenText(props.children);
                           return (
-                            <p className="mb-2 last:mb-0 block w-full font-['Lora'] break-words">
+                            <p className="mb-2 last:mb-0 block w-full font-['Lora'] wrap-break-word">
                               {renderWithLogos(content)}
                             </p>
                           );
