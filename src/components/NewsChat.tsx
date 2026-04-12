@@ -5,10 +5,13 @@ import { Send, Newspaper, ChevronDown } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 const getChildrenText = (children: React.ReactNode): string => {
-  if (typeof children === 'string') return children;
+  if (typeof children === 'string' || typeof children === 'number') return String(children);
   if (Array.isArray(children)) return children.map(getChildrenText).join('');
-  if (children && typeof children === 'object' && 'props' in children) {
-    return getChildrenText((children as React.ReactElement).props.children);
+  if (children && typeof children === 'object' && 'props' in (children as object)) {
+    const component = children as React.ReactElement<{ children?: React.ReactNode }>;
+    if (component.props && component.props.children) {
+      return getChildrenText(component.props.children);
+    }
   }
   return '';
 };
