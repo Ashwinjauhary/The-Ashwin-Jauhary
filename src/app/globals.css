@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+:root {
+  --background: #f5f0e8;
+  --foreground: #1a1a1a;
+  --border-color: #000000;
+  --accent-color: #C0392B;
+}
+
+.dark {
+  --background: #111111;
+  --foreground: #e5e5e5;
+  --border-color: #444444;
+  --accent-color: #ffffff;
+}
+
 @theme {
   --font-serif: var(--font-lora), serif;
   --font-display: var(--font-playfair), serif;
@@ -8,8 +22,9 @@
 
 @layer base {
   body {
-    background-color: #f5f0e8;
-    color: #1a1a1a;
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
 }
 
@@ -35,7 +50,7 @@
   padding-top: 0.3rem;
   padding-right: 0.5rem;
   padding-bottom: 0.1rem;
-  color: #1a1a1a;
+  color: var(--foreground);
   font-weight: 900;
 }
 
@@ -57,17 +72,18 @@
 }
 
 .border-double-heavy {
-  border-top: 4px double #1a1a1a;
-  border-bottom: 4px double #1a1a1a;
+  border-top: 4px double var(--foreground);
+  border-bottom: 4px double var(--foreground);
 }
 
 .rule-hairline {
-  border-right: 1px solid rgba(26, 26, 26, 0.4);
+  border-right: 1px solid var(--foreground);
+  opacity: 0.2;
 }
 
 .tag-breaking {
-  background-color: #C0392B;
-  color: #f5f0e8;
+  background-color: var(--accent-color);
+  color: var(--background);
   font-family: var(--font-lora);
   font-weight: bold;
   text-transform: uppercase;

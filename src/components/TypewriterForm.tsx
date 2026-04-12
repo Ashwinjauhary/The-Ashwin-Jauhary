@@ -124,19 +124,19 @@ export default function TypewriterForm() {
     <div className="relative w-full max-w-4xl mx-auto mt-12 mb-20 overflow-visible">
       
       {/* Typewriter Body */}
-      <div className="relative bg-[#2c2c2c] rounded-t-[40px] p-6 pt-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-x-10 border-t-10 border-[#1a1a1a]">
+      <div className="relative bg-[#2c2c2c] dark:bg-[#1a1a1a] rounded-t-[40px] p-6 pt-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-x-10 border-t-10 border-[#1a1a1a] dark:border-foreground/20">
         
         {/* The Paper Roller (Platen) */}
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[90%] h-20 bg-[#1a1a1a] rounded-full border-4 border-[#333] flex items-center justify-between px-10 shadow-inner z-0">
-          <div className="w-10 h-10 bg-[#444] rounded-full border-2 border-black"></div>
-          <div className="w-10 h-10 bg-[#444] rounded-full border-2 border-black"></div>
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[90%] h-20 bg-[#1a1a1a] dark:bg-black rounded-full border-4 border-[#333] flex items-center justify-between px-10 shadow-inner z-0">
+          <div className="w-10 h-10 bg-[#444] rounded-full border-2 border-black dark:border-white/10"></div>
+          <div className="w-10 h-10 bg-[#444] rounded-full border-2 border-black dark:border-white/10"></div>
         </div>
 
         {/* The Paper Container */}
-        <div className="relative z-10 bg-[#f5f0e8] mx-auto w-[90%] md:w-[85%] min-h-[550px] shadow-2xl p-6 md:p-12 border border-black/10 overflow-hidden group">
+        <div className="relative z-10 bg-background mx-auto w-[90%] md:w-[85%] min-h-[550px] shadow-2xl p-6 md:p-12 border border-foreground/10 overflow-hidden group transition-colors duration-500">
           
           {/* Paper Texture Overlay */}
-          <div className="absolute inset-0 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/notebook.png')] opacity-30"></div>
+          <div className="absolute inset-0 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/notebook.png')] opacity-30 dark:opacity-10"></div>
           <div className="absolute inset-0 pointer-events-none border-l-2 border-red-500/20 ml-8 md:ml-12"></div>
 
           {/* Paper Header */}
@@ -182,7 +182,7 @@ export default function TypewriterForm() {
 
             <div className="pt-2">
               <div className="flex items-center gap-4 mb-2">
-                <span className="font-sans text-[10px] font-black uppercase tracking-[0.2em] text-black/40">Body:</span>
+                <span className="font-sans text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40">Body:</span>
               </div>
               <textarea 
                 rows={12}
@@ -191,9 +191,9 @@ export default function TypewriterForm() {
                 onFocus={() => setActiveField("text")}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="w-full bg-transparent border-none outline-none font-serif text-base md:text-lg italic placeholder:text-black/10 resize-none min-h-[400px]"
+                className="w-full bg-transparent border-none outline-none font-serif text-base md:text-lg italic placeholder:text-foreground/10 resize-none min-h-[400px] text-foreground"
                 style={{ 
-                  backgroundImage: 'linear-gradient(transparent, transparent 33px, #00000010 33px, #00000010 34px, transparent 34px)', 
+                  backgroundImage: 'linear-gradient(transparent, transparent 33px, #ffffff08 33px, #ffffff08 34px, transparent 34px)', 
                   backgroundSize: '100% 34px',
                   lineHeight: '34px'
                 }}
