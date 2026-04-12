@@ -1,13 +1,25 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { Search, Folder, X, ExternalLink, Hash, Award } from "lucide-react";
+import { useState, useMemo, useRef, useEffect } from "react";
+import { Search, Folder, X, ExternalLink, Hash, Award, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects, skills, certificates } from "@/data";
 
 export default function BureauOfRecords() {
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Close drawer when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsFocused(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const results = useMemo(() => {
     if (!query.trim()) return [];
@@ -31,7 +43,7 @@ export default function BureauOfRecords() {
   }, [query]);
 
   return (
-    <div className="relative z-40 mb-8 border-[3px] border-black p-4 bg-[#f0ebd9] shadow-[4px_4px_0_#1a1a1a]">
+    <div ref={containerRef} className="relative z-40 mb-8 border-[3px] border-black p-4 bg-[#f0ebd9] shadow-[4px_4px_0_#1a1a1a]">
       {/* Search Header - The "Handle" */}
       <div className="flex items-center gap-3 border-b-2 border-black pb-3 mb-4">
         <div className="bg-black p-2 rounded-none">
@@ -57,10 +69,14 @@ export default function BureauOfRecords() {
           placeholder="Search Archives (e.g. Next.js, Catalyst)"
           className="w-full bg-[#f5f0e8] border-2 border-black p-3 font-sans text-xs uppercase font-bold tracking-widest focus:outline-none focus:ring-0 placeholder:text-black/20"
         />
-        {query && (
+        {(query || isFocused) && (
           <button 
-            onClick={() => setQuery("")}
+            onClick={() => {
+              setQuery("");
+              setIsFocused(false);
+            }}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-black/40 hover:text-black transition-colors"
+            title="Close Drawer"
           >
             <X size={14} />
           </button>
@@ -129,9 +145,18 @@ export default function BureauOfRecords() {
 
             {/* Cabinet Base Detail */}
             <div className="h-2 w-full bg-black/5 mt-2 flex justify-center gap-1">
-              <div className="w-1/3 h-full border-x border-black/10"></div>
-              <div className="w-1/3 h-full border-x border-black/10"></div>
+              <div className="w-1/4 h-full border-x border-black/10"></div>
+              <div className="w-1/4 h-full border-x border-black/10"></div>
+              <div className="w-1/4 h-full border-x border-black/10"></div>
             </div>
+
+            <button 
+              onClick={() => setIsFocused(false)}
+              className="w-full mt-2 py-1 text-[8px] uppercase font-bold text-black/40 hover:text-black transition-colors flex items-center justify-center gap-1 border-t border-black/5"
+            >
+              <ChevronUp size={10} />
+              Close Archive Drawer
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
