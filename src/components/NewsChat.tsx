@@ -58,7 +58,7 @@ const renderWithLogos = (text: string) => {
     if (part.startsWith('[') && part.endsWith(']')) {
       return <PlatformBadge key={i} type={part} />;
     }
-    
+
     // Split text further for links, emails, and bold markdown
     const textParts = part.split(/(https?:\/\/[^\s\][)]+|mailto:[^\s\][)]+|\/[^\s]+\.pdf|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|\*\*[^*]+\*\*)/g);
     return textParts.map((subPart, j) => {
@@ -66,15 +66,15 @@ const renderWithLogos = (text: string) => {
       if (subPart.startsWith('**') && subPart.endsWith('**')) {
         return <strong key={`${i}-${j}`} className="font-bold">{subPart.slice(2, -2)}</strong>;
       }
-      
+
       // Check if it's a URL or Email
       if (subPart.match(/https?:\/\/[^\s\][)]+|mailto:[^\s\][)]+|\/[^\s]+\.pdf|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)) {
         const isEmail = subPart.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
         return (
-          <a 
-            key={`${i}-${j}`} 
-            href={isEmail ? `mailto:${subPart}` : subPart} 
-            target={isEmail ? "_self" : "_blank"} 
+          <a
+            key={`${i}-${j}`}
+            href={isEmail ? `mailto:${subPart}` : subPart}
+            target={isEmail ? "_self" : "_blank"}
             rel="noopener noreferrer"
             className="text-[#C0392B] underline hover:text-black transition-colors font-bold wrap-break-word"
           >
@@ -91,7 +91,7 @@ const setupRadioNoise = () => {
   if (typeof window === "undefined") return null;
   const AudioContext = window.AudioContext || (window as any).webkitAudioContext; // eslint-disable-line @typescript-eslint/no-explicit-any
   const ctx = new AudioContext();
-  
+
   // Create white noise
   const bufferSize = 2 * ctx.sampleRate;
   const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
@@ -152,8 +152,8 @@ export default function NewsChat() {
 
     // Clean text for speech
     let cleanText = text.replace(/\[GITHUB\]|\[LINKEDIN\]|\[RESUME\]|\[DEVTO\]|\[LEDGER\]|\[MAIL\]/g, '')
-                          .replace(/\*\*/g, '');
-    
+      .replace(/\*\*/g, '');
+
     // Phonetic corrections for better pronunciation
     cleanText = cleanText.replace(/Jauhary/gi, 'Joh-ha-ree');
 
@@ -164,16 +164,16 @@ export default function NewsChat() {
     }
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.rate = 0.95;
-    utterance.pitch = 0.9;
-    
-    // Prioritize Male Indian English voices
+    utterance.rate = 0.92;
+    utterance.pitch = 0.85; // Lower pitch for mature men feel
+
+    // Prioritize Mature Male Indian English voices
     const voices = window.speechSynthesis.getVoices();
-    const targetVoice = voices.find(v => (v.lang.includes("en-IN") || v.name.includes("India")) && (v.name.includes("Male") || v.name.includes("Heir")))
-                     || voices.find(v => v.lang.includes("en-IN") || v.name.includes("India"))
-                     || voices.find(v => v.name.includes("Google US English") && v.name.includes("Male"))
-                     || voices[0];
-    
+    const targetVoice = voices.find(v => (v.lang.includes("en-IN") || v.name.includes("India")) && (v.name.includes("Male") || v.name.includes("Ravi")))
+      || voices.find(v => v.lang.includes("en-IN") || v.name.includes("India"))
+      || voices.find(v => (v.name.includes("Google UK English Male") || v.name.includes("Male")))
+      || voices[0];
+
     if (targetVoice) utterance.voice = targetVoice;
 
     utterance.onend = () => {
@@ -248,18 +248,18 @@ export default function NewsChat() {
           >
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} w-full`}>
-                  <div className={`max-w-[85%] p-3 border-2 border-black shadow-[4px_4px_0_rgba(0,0,0,1)] overflow-hidden relative ${m.role === 'user' ? 'bg-[#1a1a1a] text-[#f5f0e8]' : 'bg-white'
+                <div className={`max-w-[85%] p-3 border-2 border-black shadow-[4px_4px_0_rgba(0,0,0,1)] overflow-hidden relative ${m.role === 'user' ? 'bg-[#1a1a1a] text-[#f5f0e8]' : 'bg-white'
                   }`}>
-                    {m.role === 'assistant' && (
-                      <button 
-                        onClick={() => playRadio(m.content, i)}
-                        className={`absolute top-1 right-1 p-1 hover:bg-black/5 transition-colors ${isPlayingIdx === i ? 'text-[#C0392B] animate-pulse' : 'text-black/30'}`}
-                        title="Radio Broadcast"
-                      >
-                        {isPlayingIdx === i ? <Square size={14} fill="currentColor" /> : <Volume2 size={14} />}
-                      </button>
-                    )}
-                    <div className="prose prose-sm prose-stone max-w-none wrap-break-word">
+                  {m.role === 'assistant' && (
+                    <button
+                      onClick={() => playRadio(m.content, i)}
+                      className={`absolute top-1 right-1 p-1 hover:bg-black/5 transition-colors ${isPlayingIdx === i ? 'text-[#C0392B] animate-pulse' : 'text-black/30'}`}
+                      title="Radio Broadcast"
+                    >
+                      {isPlayingIdx === i ? <Square size={14} fill="currentColor" /> : <Volume2 size={14} />}
+                    </button>
+                  )}
+                  <div className="prose prose-sm prose-stone max-w-none wrap-break-word">
                     <ReactMarkdown
                       components={{
                         h3: ({ ...props }) => <h3 className="font-black text-sm uppercase mt-3 mb-1 border-b border-black/20" {...props} />,
