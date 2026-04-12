@@ -106,13 +106,7 @@
   .grid {
     display: grid !important;
     grid-template-columns: 2fr 1fr !important;
-    gap: 1rem !important;
-  }
-
-  article, aside, section {
-    break-inside: avoid-page !important;
-    page-break-inside: avoid !important;
-    margin-bottom: 1.5rem !important;
+    gap: 1.5rem !important;
   }
 
   article {
@@ -123,7 +117,11 @@
   section.col-span-full {
     grid-column: 1 / -1 !important;
     margin-top: 2rem !important;
-    break-inside: avoid !important;
+  }
+
+  /* Fix white space and page breaks */
+  article, aside, section {
+    page-break-inside: auto !important;
   }
 
   .shadow-none-print {
