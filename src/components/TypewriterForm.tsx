@@ -64,7 +64,7 @@ export default function TypewriterForm() {
     <div className="relative w-full max-w-4xl mx-auto mt-12 mb-20 overflow-visible">
       
       {/* Typewriter Body */}
-      <div className="relative bg-[#2c2c2c] rounded-t-[40px] p-6 pt-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-x-[10px] border-t-[10px] border-[#1a1a1a]">
+      <div className="relative bg-[#2c2c2c] rounded-t-[40px] p-6 pt-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-x-10 border-t-10 border-[#1a1a1a]">
         
         {/* The Paper Roller (Platen) */}
         <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[90%] h-20 bg-[#1a1a1a] rounded-full border-4 border-[#333] flex items-center justify-between px-10 shadow-inner z-0">
@@ -128,8 +128,12 @@ export default function TypewriterForm() {
                 onKeyDown={handleKeyDown}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="w-full bg-transparent border-none outline-none font-serif text-base md:text-lg leading-loose italic placeholder:text-black/10 resize-none min-h-[300px]"
-                style={{ backgroundImage: 'linear-gradient(transparent, transparent 33px, #00000010 33px, #00000010 34px, transparent 34px)', backgroundSize: '100% 34px' }}
+                className="w-full bg-transparent border-none outline-none font-serif text-base md:text-lg italic placeholder:text-black/10 resize-none min-h-[400px]"
+                style={{ 
+                  backgroundImage: 'linear-gradient(transparent, transparent 33px, #00000010 33px, #00000010 34px, transparent 34px)', 
+                  backgroundSize: '100% 34px',
+                  lineHeight: '34px'
+                }}
               />
             </div>
           </div>
