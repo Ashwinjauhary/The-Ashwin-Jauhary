@@ -17,16 +17,16 @@ export default function BureauOfRecords() {
       p.title.toLowerCase().includes(q) || 
       p.description.toLowerCase().includes(q) || 
       p.tech.some(t => t.toLowerCase().includes(q))
-    ).map(p => ({ title: p.title, description: p.description, type: 'Project' as const }));
+    ).map(p => ({ title: p.title, description: p.description, type: 'Project' as const, href: p.live }));
 
     const filteredSkills = skills.flatMap(s => s.items).filter(s => 
       s.toLowerCase().includes(q)
-    ).slice(0, 5).map(s => ({ title: s, description: '', type: 'Skill' as const }));
+    ).slice(0, 5).map(s => ({ title: s, description: 'Strategic Technical Skill', type: 'Skill' as const, href: '/portfolio' }));
 
     const filteredCerts = certificates.filter(c => 
       c.title.toLowerCase().includes(q) || 
       c.org.toLowerCase().includes(q)
-    ).map(c => ({ title: c.title, description: c.org, type: 'Certificate' as const }));
+    ).map(c => ({ title: c.title, description: c.org, type: 'Certificate' as const, href: '/resume' }));
 
     return [...filteredProjects, ...filteredSkills, ...filteredCerts];
   }, [query]);
@@ -82,12 +82,14 @@ export default function BureauOfRecords() {
               {results.length > 0 ? (
                 <div className="space-y-3">
                   {results.slice(0, 5).map((res, i) => (
-                    <motion.div 
+                    <motion.a 
                       key={i}
+                      href={res.href}
+                      target={res.type === 'Project' ? "_blank" : "_self"}
                       initial={{ x: -20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ delay: i * 0.05 }}
-                      className="group flex items-start gap-3 p-2 bg-[#f5f0e8] border border-black/40 hover:border-black hover:bg-white transition-all cursor-pointer"
+                      className="group flex items-start gap-3 p-2 bg-[#f5f0e8] border border-black/40 hover:border-black hover:bg-white transition-all cursor-pointer block"
                     >
                       <div className="mt-0.5">
                         {res.type === 'Project' && <Folder size={14} className="text-black/60" />}
@@ -97,7 +99,7 @@ export default function BureauOfRecords() {
                       <div className="flex-1">
                         <div className="flex justify-between items-center mb-0.5">
                           <span className="text-[8px] uppercase font-black bg-black text-white px-1">{res.type}</span>
-                          {res.type === 'Project' && <ExternalLink size={10} className="text-black/40" />}
+                          <ExternalLink size={10} className="text-black/40 group-hover:text-black transition-colors" />
                         </div>
                         <h4 className="text-[11px] font-black uppercase tracking-tight leading-none mb-1">
                           {res.title}
@@ -108,7 +110,7 @@ export default function BureauOfRecords() {
                           </p>
                         )}
                       </div>
-                    </motion.div>
+                    </motion.a>
                   ))}
                   {results.length > 5 && (
                     <p className="text-[8px] uppercase font-bold text-center text-black/40 pt-2 italic">
