@@ -155,7 +155,7 @@ export default function NewsChat() {
       .replace(/\*\*/g, '');
 
     // Phonetic corrections for better pronunciation
-    cleanText = cleanText.replace(/Jauhary/gi, 'Joh-ha-ree');
+    cleanText = cleanText.replace(/Jauhary/gi, 'Jau-ha-ree');
 
     const radio = setupRadioNoise();
     if (radio) {
