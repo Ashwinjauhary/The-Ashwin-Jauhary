@@ -1,3 +1,4 @@
+"use client";
 import { ExternalLink, Printer } from "lucide-react";
 import Image from "next/image";
 import { profile, projects } from "@/data";
