@@ -73,11 +73,11 @@ export default function TypewriterForm() {
         </div>
 
         {/* The Paper Container */}
-        <div className="relative z-10 bg-[#f5f0e8] mx-auto w-[85%] min-h-[500px] shadow-2xl p-10 border border-black/10 overflow-hidden group">
+        <div className="relative z-10 bg-[#f5f0e8] mx-auto w-[90%] md:w-[85%] min-h-[550px] shadow-2xl p-6 md:p-12 border border-black/10 overflow-hidden group">
           
           {/* Paper Texture Overlay */}
           <div className="absolute inset-0 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/notebook.png')] opacity-30"></div>
-          <div className="absolute inset-0 pointer-events-none border-x-2 border-red-500/10 ml-12"></div>
+          <div className="absolute inset-0 pointer-events-none border-l-2 border-red-500/20 ml-8 md:ml-12"></div>
 
           {/* Paper Header */}
           <div className="text-center mb-12 border-b-2 border-dashed border-black/20 pb-6">
@@ -86,49 +86,50 @@ export default function TypewriterForm() {
           </div>
 
           {/* Form Fields as Typed Lines */}
-          <div className="space-y-8 relative">
+          <div className="space-y-6 relative px-4 md:px-8">
             
             {/* Ink Ribbon Effect (Subtle red line on focus) */}
             <motion.div 
-               animate={{ x: isTyping ? [0, -2, 2, 0] : 0 }}
-               className="absolute -left-4 top-0 w-1 h-full bg-red-600/10"
+               animate={{ x: isTyping ? [0, -1, 1, 0] : 0 }}
+               className="absolute -left-2 top-0 w-0.5 h-full bg-red-600/5"
             />
 
-            <div className="flex items-center gap-4">
-              <span className="font-sans text-xs font-black uppercase tracking-widest text-black/40 min-w-[100px]">From:</span>
+            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 border-b border-black/10 pb-2">
+              <span className="font-sans text-[10px] font-black uppercase tracking-[0.2em] text-black/40 min-w-[80px]">From:</span>
               <input 
                 type="text" 
                 placeholder="TYPE NAME HERE..."
                 onKeyDown={handleKeyDown}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="flex-1 bg-transparent border-b-2 border-dashed border-black/20 focus:border-black outline-none font-sans font-bold uppercase text-sm tracking-widest placeholder:text-black/10"
+                className="flex-1 bg-transparent outline-none font-sans font-bold uppercase text-xs tracking-widest placeholder:text-black/10"
               />
             </div>
 
-            <div className="flex items-center gap-4">
-              <span className="font-sans text-xs font-black uppercase tracking-widest text-black/40 min-w-[100px]">Signal:</span>
+            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 border-b border-black/10 pb-2">
+              <span className="font-sans text-[10px] font-black uppercase tracking-[0.2em] text-black/40 min-w-[80px]">Signal:</span>
               <input 
                 type="email" 
                 placeholder="YOUR.EMAIL@COMMMS.GOV"
                 onKeyDown={handleKeyDown}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 bg-transparent border-b-2 border-dashed border-black/20 focus:border-black outline-none font-sans font-bold uppercase text-sm tracking-widest placeholder:text-black/10"
+                className="flex-1 bg-transparent outline-none font-sans font-bold uppercase text-xs tracking-widest placeholder:text-black/10"
               />
             </div>
 
-            <div className="pt-4">
-              <div className="flex items-center gap-4 mb-4">
-                <span className="font-sans text-xs font-black uppercase tracking-widest text-black/40">Body:</span>
+            <div className="pt-2">
+              <div className="flex items-center gap-4 mb-2">
+                <span className="font-sans text-[10px] font-black uppercase tracking-[0.2em] text-black/40">Body:</span>
               </div>
               <textarea 
-                rows={10}
+                rows={12}
                 placeholder="START TYPING YOUR MESSAGE... KLAK KLAK KLAK..."
                 onKeyDown={handleKeyDown}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="w-full bg-transparent border-2 border-dashed border-black/10 focus:border-black p-4 outline-none font-serif text-lg leading-relaxed italic placeholder:text-black/10 resize-none"
+                className="w-full bg-transparent border-none outline-none font-serif text-base md:text-lg leading-loose italic placeholder:text-black/10 resize-none min-h-[300px]"
+                style={{ backgroundImage: 'linear-gradient(transparent, transparent 33px, #00000010 33px, #00000010 34px, transparent 34px)', backgroundSize: '100% 34px' }}
               />
             </div>
           </div>
