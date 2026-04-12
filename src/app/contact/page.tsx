@@ -1,4 +1,5 @@
 import { profile } from "@/data";
+import TypewriterForm from "@/components/TypewriterForm";
 
 export default function ContactPage() {
   return (
@@ -98,6 +99,17 @@ export default function ContactPage() {
             </p>
           </div>
         </div>
+      </div>
+      {/* Typewriter Section */}
+      <div className="mt-20 pt-10 border-t-[6px] border-double border-black">
+        <div className="text-center mb-8">
+          <p className="font-sans text-[10px] font-bold uppercase tracking-[0.3em] mb-2">Operation: Telegram</p>
+          <h2 className="font-['Playfair_Display'] text-4xl font-black uppercase tracking-tight">The Typewriter Desk</h2>
+          <p className="font-['Lora'] italic text-sm text-black/60 max-w-xl mx-auto mt-2">
+            For secure, high-priority dispatches. Every stroke is recorded. Every signal is vital.
+          </p>
+        </div>
+        <TypewriterForm />
       </div>
     </div>
   );
