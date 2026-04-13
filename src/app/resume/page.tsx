@@ -2,32 +2,32 @@ import { skills, certificates, profile, experience, clientWork } from "@/data";
 
 export default function Resume() {
   return (
-    <div className="max-w-[1400px] mx-auto px-4 py-8 min-h-screen font-sans text-foreground transition-colors duration-500">
+    <div className="max-w-[1400px] mx-auto px-4 py-8 min-h-screen font-sans text-foreground transition-colors duration-500 overflow-x-hidden md:overflow-x-visible">
 
       {/* Section Header */}
       <div className="text-center border-b-[6px] border-double border-foreground pb-4 mb-10">
-        <p className="font-sans text-xs tracking-[0.3em] uppercase font-bold mb-1 text-foreground/60">Career & Capabilities — Section D</p>
-        <h1 className="font-['Playfair_Display'] text-5xl md:text-7xl font-black uppercase tracking-tight text-foreground">The Dossier</h1>
-        <p className="font-['Lora'] italic text-base mt-2 text-foreground/60">Complete professional record. Verified, filed, and ready for inspection.</p>
+        <p className="font-sans text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.3em] uppercase font-bold mb-1 text-foreground/60">Career & Capabilities — Section D</p>
+        <h1 className="font-['Playfair_Display'] text-4xl xs:text-5xl md:text-7xl font-black uppercase tracking-tight text-foreground leading-none">The Dossier</h1>
+        <p className="font-['Lora'] italic text-sm sm:text-base mt-2 text-foreground/60 px-4">Complete professional record. Verified, filed, and ready for inspection.</p>
       </div>
 
       {/* Identity + Stats Banner */}
       <div className="grid grid-cols-2 md:grid-cols-4 border-y-2 border-foreground mb-10 divide-x-2 divide-foreground text-center bg-foreground/5 transition-colors duration-500">
-        <div className="py-4 px-2">
-          <p className="font-['Playfair_Display'] text-3xl font-black text-foreground">7.0</p>
-          <p className="font-sans text-[10px] uppercase tracking-widest font-bold text-foreground/60">GPA / 10.0</p>
+        <div className="py-4 px-1 xs:px-2">
+          <p className="font-['Playfair_Display'] text-2xl xs:text-3xl font-black text-foreground">7.0</p>
+          <p className="font-sans text-[8px] xs:text-[10px] uppercase tracking-widest font-bold text-foreground/60">GPA / 10.0</p>
         </div>
-        <div className="py-4 px-2">
-          <p className="font-['Playfair_Display'] text-3xl font-black text-foreground">828+</p>
-          <p className="font-sans text-[10px] uppercase tracking-widest font-bold text-foreground/60">GitHub Contributions</p>
+        <div className="py-4 px-1 xs:px-2">
+          <p className="font-['Playfair_Display'] text-2xl xs:text-3xl font-black text-foreground">828+</p>
+          <p className="font-sans text-[8px] xs:text-[10px] uppercase tracking-widest font-bold text-foreground/60">GitHub Contributions</p>
         </div>
-        <div className="py-4 px-2">
-          <p className="font-['Playfair_Display'] text-3xl font-black text-foreground">31</p>
-          <p className="font-sans text-[10px] uppercase tracking-widest font-bold text-foreground/60">Public Repos</p>
+        <div className="py-4 px-1 xs:px-2">
+          <p className="font-['Playfair_Display'] text-2xl xs:text-3xl font-black text-foreground">31</p>
+          <p className="font-sans text-[8px] xs:text-[10px] uppercase tracking-widest font-bold text-foreground/60">Public Repos</p>
         </div>
-        <div className="py-4 px-2">
-          <p className="font-['Playfair_Display'] text-3xl font-black text-foreground">12</p>
-          <p className="font-sans text-[10px] uppercase tracking-widest font-bold text-foreground/60">Certifications</p>
+        <div className="py-4 px-1 xs:px-2">
+          <p className="font-['Playfair_Display'] text-2xl xs:text-3xl font-black text-foreground">12</p>
+          <p className="font-sans text-[8px] xs:text-[10px] uppercase tracking-widest font-bold text-foreground/60">Certifications</p>
         </div>
       </div>
 

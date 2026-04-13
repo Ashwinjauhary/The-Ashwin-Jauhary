@@ -18,30 +18,20 @@ export function ThemeToggle() {
   const isDark = theme === "dark";
 
   return (
-    <div className="flex items-center gap-3 ml-4 border-l border-black/10 dark:border-white/10 pl-4">
+    <div className="flex items-center ml-2 sm:ml-4 border-l border-foreground/10 pl-2 sm:pl-4 no-print">
       <button
         onClick={() => setTheme(isDark ? "light" : "dark")}
-        className="relative flex items-center gap-2 group cursor-pointer"
-        title="Toggle Night Dispatch"
+        className="relative w-8 h-8 rounded-full bg-foreground text-background flex items-center justify-center shadow-md transition-all active:scale-90 hover:scale-105 cursor-pointer group"
+        title={isDark ? "Morning Gold Edition" : "Midnight Silver Edition"}
       >
-        <div className="flex flex-col items-end">
-          <span 
-            className="font-sans text-[8px] font-black uppercase tracking-[0.2em] leading-none group-hover:opacity-100 transition-colors"
-            style={{ color: isDark ? 'rgba(255,255,255,0.4)' : 'black' }}
-          >
-            Edition selector
-          </span>
-          <span 
-            className="font-['Playfair_Display'] text-[10px] font-black uppercase italic leading-none mt-1"
-            style={{ color: isDark ? 'white' : 'black' }}
-          >
-            {isDark ? "Midnight Silver" : "Morning Gold"}
-          </span>
-        </div>
-        
-        <div className="relative w-8 h-8 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center shadow-lg transition-transform active:scale-95 group-hover:rotate-12">
-          {isDark ? <Sun size={14} /> : <Moon size={14} />}
-        </div>
+        <motion.div
+          key={theme}
+          initial={{ rotate: -90, opacity: 0 }}
+          animate={{ rotate: 0, opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          {isDark ? <Sun size={14} className="group-hover:text-yellow-400 transition-colors" /> : <Moon size={14} className="group-hover:text-blue-400 transition-colors" />}
+        </motion.div>
       </button>
     </div>
   );

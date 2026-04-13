@@ -45,21 +45,21 @@ export default function Home() {
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase();
 
   return (
-    <div className="max-w-[1400px] mx-auto px-4 py-8 min-h-screen relative font-sans text-foreground transition-colors duration-500">
+    <div className="max-w-[1400px] mx-auto px-4 py-8 min-h-screen relative font-sans text-foreground transition-colors duration-500 overflow-x-hidden md:overflow-x-visible">
       {/* ===== MASTHEAD ===== */}
       <header className="flex flex-col items-center mb-6 pb-2 border-b-[6px] border-foreground border-double">
         <DynamicMasthead />
 
-        {/* Newspaper Title - Forced Single Line */}
-        <div className="relative w-full text-center">
+        {/* Newspaper Title - Responsive for small screens, exact for laptop */}
+        <div className="relative w-full text-center mt-4 sm:mt-0">
           <button 
             onClick={() => window.print()}
-            className="absolute -top-4 right-0 no-print flex items-center gap-2 bg-black text-[#f5f0e8] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#C0392B] transition-all cursor-pointer shadow-[4px_4px_0_rgba(0,0,0,0.2)] active:translate-y-0.5 active:shadow-none"
+            className="absolute -top-10 sm:-top-4 right-0 no-print flex items-center gap-2 bg-black text-[#f5f0e8] px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#C0392B] transition-all cursor-pointer shadow-[4px_4px_0_rgba(0,0,0,0.2)] active:translate-y-0.5 active:shadow-none z-50"
           >
             <Printer size={12} />
-            <span>Clip to PDF</span>
+            <span className="hidden xs:inline">Clip to PDF</span>
           </button>
-          <h1 className="text-[2.5rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[7.8rem] leading-none mb-2 tracking-tighter font-['Playfair_Display'] font-black uppercase antialiased whitespace-nowrap text-foreground" style={{ textShadow: "1px 1px 0px rgba(0,0,0,0.15)"}}>
+          <h1 className="text-[2.2rem] xs:text-[2.8rem] sm:text-[4.5rem] md:text-[6.5rem] lg:text-[7.8rem] leading-[0.85] sm:leading-none mb-2 tracking-tighter font-['Playfair_Display'] font-black uppercase antialiased sm:whitespace-nowrap text-foreground wrap-break-word sm:break-normal" style={{ textShadow: "1px 1px 0px rgba(0,0,0,0.15)"}}>
             The Ashwin Jauhary
           </h1>
         </div>
@@ -71,11 +71,11 @@ export default function Home() {
         {/* LEAD STORY (Cols 1-8) */}
         <article className="md:col-span-8 pr-0 md:pr-8 md:border-r-[1.5px] border-foreground/40">
 
-          <h2 className="font-['Playfair_Display'] text-4xl sm:text-5xl md:text-[4rem] font-black leading-[0.9] mb-6 tracking-tight uppercase text-center border-b-[3px] border-foreground pb-6 text-foreground">
+          <h2 className="font-['Playfair_Display'] text-3xl sm:text-5xl md:text-[4rem] font-black leading-[0.9] mb-6 tracking-tight uppercase text-center border-b-[3px] border-foreground pb-6 text-foreground">
             Architect Unleashes Premium Web Infrastructure
           </h2>
 
-          <div className="flex items-center justify-between mb-6 border-b border-foreground/20 pb-2 italic font-['Lora'] text-sm">
+          <div className="flex flex-col sm:flex-row items-center justify-between mb-6 border-b border-foreground/20 pb-4 sm:pb-2 gap-4 sm:gap-0 italic font-['Lora'] text-sm">
             <span className="flex items-center gap-3">
               <InvestigativeLens
                 src="/Avatar.png"
@@ -172,8 +172,8 @@ export default function Home() {
 
         {/* BOTTOM SECTION: PROJECTS AS CLASSIFIEDS */}
         <section className="col-span-full border-t-[6px] border-double border-foreground pt-6">
-          <div className="flex justify-between items-end border-b-2 border-foreground pb-2 mb-6">
-            <h2 className="font-['Playfair_Display'] text-3xl md:text-5xl font-black tracking-widest uppercase text-foreground">
+          <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end border-b-2 border-foreground pb-2 mb-6 gap-2">
+            <h2 className="font-['Playfair_Display'] text-3xl md:text-5xl font-black tracking-widest uppercase text-foreground text-center sm:text-left">
               Classified Implementations
             </h2>
             <span className="font-sans text-xs font-bold uppercase tracking-widest hidden sm:block text-foreground/40">Section C</span>
@@ -208,17 +208,17 @@ export default function Home() {
 
         {/* CONTACT ADVERTISEMENT */}
         <section className="col-span-full my-8 border-[5px] border-foreground p-2 bg-foreground/5 transition-colors duration-500">
-          <div className="border border-foreground p-8 sm:p-12 text-center bg-[url('https://www.transparenttextures.com/patterns/diagonal-stripes.png')] bg-opacity-20 flex flex-col items-center justify-center">
+          <div className="border border-foreground p-4 sm:p-12 text-center bg-[url('https://www.transparenttextures.com/patterns/diagonal-stripes.png')] bg-opacity-20 flex flex-col items-center justify-center">
             <div className="bg-background p-6 sm:p-10 w-full max-w-4xl border-2 border-foreground shadow-[8px_8px_0px_#000] dark:shadow-[8px_8px_0px_#333] transition-colors duration-500">
               <p className="font-sans font-bold text-sm tracking-widest uppercase mb-4 border-b border-foreground pb-2 inline-block text-foreground">Employment Opportunity</p>
-              <h2 className="font-['Playfair_Display'] text-4xl sm:text-6xl font-black uppercase mb-4 leading-none text-foreground">Wanted: Visionaries</h2>
-              <p className="font-['Playfair_Display'] text-xl sm:text-2xl italic mb-8 max-w-2xl mx-auto text-foreground/80">
+              <h2 className="font-['Playfair_Display'] text-3xl sm:text-6xl font-black uppercase mb-4 leading-[0.9] text-foreground">Wanted: Visionaries</h2>
+              <p className="font-['Playfair_Display'] text-lg sm:text-2xl italic mb-8 max-w-2xl mx-auto text-foreground/80">
                 Currently accepting inquiries for high-stakes engineering & premium frontend design positions.
               </p>
-              <div className="font-sans font-bold uppercase tracking-widest text-lg sm:text-xl border-y-2 border-foreground py-4 mb-8 text-foreground">
-                Send Telegrams To: <a href="mailto:ashwin2431333@gmail.com" className="bg-foreground text-background px-3 py-1 ml-2 hover:opacity-80 transition-opacity">ashwin2431333@gmail.com</a>
+              <div className="font-sans font-bold uppercase tracking-widest text-xs sm:text-xl border-y-2 border-foreground py-4 mb-8 text-foreground break-all sm:break-normal">
+                Send Telegrams To: <a href="mailto:ashwin2431333@gmail.com" className="bg-foreground text-background px-3 py-1 mt-2 sm:mt-0 sm:ml-2 hover:opacity-80 transition-opacity block sm:inline-block">ashwin2431333@gmail.com</a>
               </div>
-              <div className="flex justify-center gap-12 text-foreground">
+              <div className="flex justify-center gap-6 sm:gap-12 text-foreground">
                 <a href={profile.github} target="_blank" className="hover:scale-110 transition-transform p-2 border-2 border-foreground rounded-full" title="Github">
                   <GithubIcon size={24} />
                 </a>
@@ -232,5 +232,6 @@ export default function Home() {
 
       </main>
     </div>
+
   );
 }

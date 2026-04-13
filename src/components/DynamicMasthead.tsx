@@ -54,17 +54,17 @@ export default function DynamicMasthead() {
   }, []);
 
   return (
-    <div className="w-full flex flex-col md:flex-row justify-between items-center md:items-end border-y-2 border-foreground py-2 text-xs uppercase font-bold tracking-widest mb-6 px-4 transition-colors duration-500">
-      <div className="hidden md:flex flex-col text-center md:text-left mb-2 md:mb-0">
+    <div className="w-full flex flex-col md:flex-row justify-between items-center md:items-end border-y-2 border-foreground py-2 text-[10px] sm:text-xs uppercase font-bold tracking-widest mb-6 px-4 transition-colors duration-500 gap-2 md:gap-0">
+      <div className="hidden md:flex flex-col text-center md:text-left">
         <span>VOL. I ... No. 1</span>
         <span className="block italic font-['Lora'] text-[10px] normal-case mt-1 text-accent animate-pulse">{time}</span>
       </div>
       
       <div className="flex flex-col items-center text-center">
-        <span className="text-sm font-black border-x-2 border-foreground px-4">
+        <span className="text-xs sm:text-sm font-black border-x-2 border-foreground px-4">
           {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase()}
         </span>
-        <span className="block font-['Playfair_Display'] text-[11px] font-normal tracking-wide capitalize mt-1 italic">
+        <span className="block font-['Playfair_Display'] text-[10px] sm:text-[11px] font-normal tracking-wide capitalize mt-1 italic">
           &quot;All the Code That&apos;s Fit to Ship&quot;
         </span>
       </div>
@@ -74,6 +74,12 @@ export default function DynamicMasthead() {
         <span className="block font-['Lora'] italic text-[10px] normal-case mt-1">
           Weather: {weather?.condition || "Consulting Satellites..."} — {weather?.temp}°C in {weather?.city}
         </span>
+      </div>
+      
+      {/* Mobile-only time/edition badge */}
+      <div className="flex md:hidden items-center gap-4 text-[9px] border-t border-foreground/10 pt-1 w-full justify-center">
+         <span className="italic font-['Lora'] normal-case text-accent">{time}</span>
+         <span className="bg-foreground text-background px-1.5">{edition}</span>
       </div>
     </div>
   );
