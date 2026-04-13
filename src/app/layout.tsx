@@ -45,28 +45,34 @@ export const metadata: Metadata = {
     description: "Investigating high-fidelity AI systems and strategic technical architecture.",
     images: ["/Avatar.png"],
   },
-  icons: {
-    icon: "/logo.png",
-  },
   verification: {
     google: "6tL5BnCXfeKk0mb3gEPf62HjgG-Ad-lB49u1wWjMeKA",
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Ashwin Jauhary",
-  "url": "https://the-ashwin-jauhary.vercel.app",
-  "jobTitle": "Full Stack AI Architect & Systems Developer",
-  "alumniOf": "PSIT Kanpur",
-  "sameAs": [
-    "https://linkedin.com/in/ashwin-jauhary",
-    "https://github.com/Ashwinjauhary",
-    "https://dev.to/ashwinjauhary"
-  ],
-  "description": "Ashwin Jauhary is a Full Stack AI Architect specializing in high-fidelity systems and strategic technical architecture."
-};
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ashwin Jauhary",
+    "url": "https://the-ashwin-jauhary.vercel.app",
+    "jobTitle": "Full Stack AI Architect & Systems Developer",
+    "alumniOf": "PSIT Kanpur",
+    "sameAs": [
+      "https://linkedin.com/in/ashwin-jauhary",
+      "https://github.com/Ashwinjauhary",
+      "https://dev.to/ashwinjauhary"
+    ],
+    "description": "Ashwin Jauhary is a Full Stack AI Architect specializing in high-fidelity systems and strategic technical architecture."
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Ashwin Jauhary",
+    "alternateName": ["The Ashwin Jauhary Broadsheet", "Ashwin Jauhary Portfolio"],
+    "url": "https://the-ashwin-jauhary.vercel.app"
+  }
+];
 
 export default function RootLayout({
   children,
