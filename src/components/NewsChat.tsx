@@ -296,7 +296,6 @@ export default function NewsChat() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          suppressHydrationWarning
           className="bg-foreground text-background p-4 rounded-full shadow-[6px_6px_0_rgba(0,0,0,0.3)] dark:shadow-[6px_6px_0_rgba(255,255,255,0.1)] hover:scale-110 hover:-translate-y-1 transition-all border-2 border-foreground group"
         >
           <Newspaper className="w-8 h-8 group-hover:rotate-12 transition-transform" />

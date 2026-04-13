@@ -61,13 +61,6 @@ export default function DynamicMasthead() {
 
   return (
     <div className="w-full flex flex-col md:flex-row justify-between items-center md:items-end border-y-2 border-foreground py-2 text-[10px] sm:text-xs uppercase font-bold tracking-widest mb-6 px-4 transition-colors duration-500 gap-2 md:gap-0">
-      <button 
-        onClick={() => window.print()}
-        suppressHydrationWarning
-        className="absolute -top-10 sm:-top-4 right-0 no-print flex items-center gap-2 bg-foreground text-background px-3 py-1 text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-transform border border-foreground"
-      >
-        Print
-      </button>
       <div className="hidden md:flex flex-col text-center md:text-left">
         <span>VOL. I ... No. 1</span>
         <span className="block italic font-['Lora'] text-[10px] normal-case mt-1 text-accent animate-pulse">{time}</span>
