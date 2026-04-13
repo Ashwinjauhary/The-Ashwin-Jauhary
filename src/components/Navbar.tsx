@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./ThemeToggle";
@@ -15,6 +16,13 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+  const [dateStr, setDateStr] = useState("");
+
+  useEffect(() => {
+    setMounted(true);
+    setDateStr(new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }));
+  }, []);
 
   return (
     <nav className="w-full bg-background border-b-[3px] border-foreground transition-colors duration-500 z-100 no-print">
@@ -43,7 +51,7 @@ export default function Navbar() {
 
           <div className="flex items-center gap-4">
             <span className="font-mono text-[10px] uppercase tracking-widest font-bold text-foreground/40 hidden lg:block">
-              {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+              {mounted ? dateStr : "LOADING..."}
             </span>
             <ThemeToggle />
           </div>

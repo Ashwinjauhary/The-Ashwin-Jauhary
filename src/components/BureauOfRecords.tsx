@@ -43,7 +43,7 @@ export default function BureauOfRecords() {
   }, [query]);
 
   return (
-    <div ref={containerRef} className="relative z-40 mb-8 border-[3px] border-foreground p-4 bg-background shadow-[4px_4px_0_#000] dark:shadow-[4px_4px_0_#333] transition-colors duration-500">
+    <div ref={containerRef} suppressHydrationWarning className="relative z-40 mb-8 border-[3px] border-foreground p-4 bg-background shadow-[4px_4px_0_#000] dark:shadow-[4px_4px_0_#333] transition-colors duration-500">
       {/* Search Header - The "Handle" */}
       <div className="flex items-center gap-3 border-b-2 border-foreground pb-3 mb-4">
         <div className="bg-foreground p-2 rounded-none">
@@ -58,7 +58,7 @@ export default function BureauOfRecords() {
           </p>
         </div>
       </div>
-
+ 
       {/* Input Field - The "Label" */}
       <div className="relative group">
         <input
@@ -67,6 +67,7 @@ export default function BureauOfRecords() {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsFocused(true)}
           placeholder="Search Archives (e.g. Next.js, Catalyst)"
+          suppressHydrationWarning
           className="w-full bg-foreground/5 border-2 border-foreground p-3 font-sans text-xs uppercase font-bold tracking-widest focus:outline-none focus:ring-0 placeholder:text-foreground/20 text-foreground"
         />
         {(query || isFocused) && (

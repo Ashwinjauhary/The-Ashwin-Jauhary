@@ -88,7 +88,7 @@ export async function POST(req: Request) {
     }
 
     return new Response(JSON.stringify({
-      content: `${mockContent}\n\n*(Note: Telegram lines are busy, providing Archive Dispatch)*`
+      content: mockContent
     }), {
       headers: { "Content-Type": "application/json" },
     });

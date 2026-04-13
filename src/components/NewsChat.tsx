@@ -76,6 +76,7 @@ const renderWithLogos = (text: string) => {
             href={isEmail ? `mailto:${subPart}` : subPart}
             target={isEmail ? "_self" : "_blank"}
             rel="noopener noreferrer"
+            download={subPart.endsWith('.pdf') ? "Ashwin_Jauhary_Resume.pdf" : undefined}
             className="text-[#C0392B] underline hover:text-black transition-colors font-bold wrap-break-word"
           >
             {subPart}
@@ -121,10 +122,60 @@ const setupRadioNoise = () => {
   return { ctx, whiteNoise, gainNode };
 };
 
+const TypewriterContent = ({ content, onFinish }: { content: string, onFinish?: () => void }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (index < content.length) {
+      const nextChar = content[index];
+      const delay = nextChar === '.' || nextChar === '!' || nextChar === '?' ? 150 : 25;
+      
+      const timeout = setTimeout(() => {
+        setDisplayedText(prev => prev + nextChar);
+        setIndex(prev => prev + 1);
+      }, delay);
+      return () => clearTimeout(timeout);
+    } else if (onFinish) {
+      onFinish();
+    }
+  }, [index, content, onFinish]);
+
+  return (
+    <ReactMarkdown
+      components={{
+        h3: ({ ...props }) => <h3 className="font-black text-sm uppercase mt-3 mb-1 border-b border-black/20" {...props} />,
+        ul: ({ ...props }) => <ul className="list-disc pl-4 space-y-1 my-2" {...props} />,
+        li: ({ ...props }) => {
+          const contentText = getChildrenText(props.children);
+          return (
+            <li className="leading-tight mb-2 list-none flex items-start gap-2 overflow-hidden w-full">
+              <span className="mt-1 text-black shrink-0 text-[10px]">•</span>
+              <div className="flex-1 min-w-0">
+                {renderWithLogos(contentText)}
+              </div>
+            </li>
+          );
+        },
+        p: ({ ...props }) => {
+          const contentText = getChildrenText(props.children);
+          return (
+            <p className="mb-2 last:mb-0 block w-full font-['Lora'] wrap-break-word">
+              {renderWithLogos(contentText)}
+            </p>
+          );
+        },
+      }}
+    >
+      {displayedText}
+    </ReactMarkdown>
+  );
+};
+
 export default function NewsChat() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>([
-    { role: "assistant", content: "Extra! Extra! Correspondent Ashwin's official AI Dispatcher here. What's the scoop? Need the lowdown on his latest projects or technical clearances?" }
+  const [messages, setMessages] = useState<{ role: string; content: string; isNew?: boolean }[]>([
+    { role: "assistant", content: "Extra! Extra! Correspondent Ashwin's official AI Dispatcher here. What's the scoop? Need the lowdown on his latest projects or technical clearances?", isNew: false }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -206,28 +257,37 @@ export default function NewsChat() {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
-    const userMsg = { role: "user", content: input };
+    const userMsg = { role: "user", content: input, isNew: false };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setIsLoading(true);
 
+    const sanitizedMessages = [
+      ...messages.map(m => ({ role: m.role, content: m.content })),
+      { role: "user", content: input }
+    ];
+
     try {
       const resp = await fetch("/api/chat", {
         method: "POST",
-        body: JSON.stringify({ messages: [...messages, userMsg] }),
+        body: JSON.stringify({ messages: sanitizedMessages }),
       });
       const data = await resp.json();
 
       if (data.content) {
-        setMessages((prev) => [...prev, { role: "assistant", content: data.content }]);
+        setMessages((prev) => [...prev, { role: "assistant", content: data.content, isNew: true }]);
       } else {
-        setMessages((prev) => [...prev, { role: "assistant", content: "The telegraph lines are down! (Server error)" }]);
+        setMessages((prev) => [...prev, { role: "assistant", content: "The telegraph lines are down! (Server error)", isNew: true }]);
       }
     } catch {
-      setMessages((prev) => [...prev, { role: "assistant", content: "Signal lost in the paper archives. Please try again." }]);
+      setMessages((prev) => [...prev, { role: "assistant", content: "Signal lost in the paper archives. Please try again.", isNew: true }]);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleTypingFinish = (idx: number) => {
+    setMessages(prev => prev.map((m, i) => i === idx ? { ...m, isNew: false } : m));
   };
 
   return (
@@ -236,6 +296,7 @@ export default function NewsChat() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
+          suppressHydrationWarning
           className="bg-foreground text-background p-4 rounded-full shadow-[6px_6px_0_rgba(0,0,0,0.3)] dark:shadow-[6px_6px_0_rgba(255,255,255,0.1)] hover:scale-110 hover:-translate-y-1 transition-all border-2 border-foreground group"
         >
           <Newspaper className="w-8 h-8 group-hover:rotate-12 transition-transform" />
@@ -272,34 +333,41 @@ export default function NewsChat() {
                       {isPlayingIdx === i ? <Square size={14} fill="currentColor" /> : <Volume2 size={14} />}
                     </button>
                   )}
-                  <div className="prose prose-sm prose-stone max-w-none wrap-break-word">
-                    <ReactMarkdown
-                      components={{
-                        h3: ({ ...props }) => <h3 className="font-black text-sm uppercase mt-3 mb-1 border-b border-black/20" {...props} />,
-                        ul: ({ ...props }) => <ul className="list-disc pl-4 space-y-1 my-2" {...props} />,
-                        li: ({ ...props }) => {
-                          const content = getChildrenText(props.children);
-                          return (
-                            <li className="leading-tight mb-2 list-none flex items-start gap-2 overflow-hidden w-full">
-                              <span className="mt-1 text-black shrink-0 text-[10px]">•</span>
-                              <div className="flex-1 min-w-0">
-                                {renderWithLogos(content)}
-                              </div>
-                            </li>
-                          );
-                        },
-                        p: ({ ...props }) => {
-                          const content = getChildrenText(props.children);
-                          return (
-                            <p className="mb-2 last:mb-0 block w-full font-['Lora'] wrap-break-word">
-                              {renderWithLogos(content)}
-                            </p>
-                          );
-                        },
-                      }}
-                    >
-                      {m.content}
-                    </ReactMarkdown>
+                  <div className="prose prose-sm prose-stone max-w-none wrap-break-word font-['Lora']">
+                    {m.role === 'assistant' && m.isNew ? (
+                      <TypewriterContent 
+                        content={m.content} 
+                        onFinish={() => handleTypingFinish(i)} 
+                      />
+                    ) : (
+                      <ReactMarkdown
+                        components={{
+                          h3: ({ ...props }) => <h3 className="font-black text-sm uppercase mt-3 mb-1 border-b border-black/20" {...props} />,
+                          ul: ({ ...props }) => <ul className="list-disc pl-4 space-y-1 my-2" {...props} />,
+                          li: ({ ...props }) => {
+                            const contentText = getChildrenText(props.children);
+                            return (
+                              <li className="leading-tight mb-2 list-none flex items-start gap-2 overflow-hidden w-full">
+                                <span className="mt-1 text-black shrink-0 text-[10px]">•</span>
+                                <div className="flex-1 min-w-0">
+                                  {renderWithLogos(contentText)}
+                                </div>
+                              </li>
+                            );
+                          },
+                          p: ({ ...props }) => {
+                            const contentText = getChildrenText(props.children);
+                            return (
+                              <p className="mb-2 last:mb-0 block w-full font-['Lora'] wrap-break-word">
+                                {renderWithLogos(contentText)}
+                              </p>
+                            );
+                          },
+                        }}
+                      >
+                        {m.content}
+                      </ReactMarkdown>
+                    )}
                   </div>
                 </div>
               </div>

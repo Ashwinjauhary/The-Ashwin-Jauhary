@@ -12,8 +12,11 @@ export default function DynamicMasthead() {
   const [edition, setEdition] = useState("Daily Edition");
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [time, setTime] = useState("");
+  const [fullDate, setFullDate] = useState("");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const updateTime = () => {
       const now = new Date();
       const hours = now.getHours();
@@ -26,6 +29,9 @@ export default function DynamicMasthead() {
 
       // Update Clock
       setTime(now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit" }));
+      
+      // Update Date String
+      setFullDate(now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase());
     };
 
     updateTime();
@@ -55,6 +61,13 @@ export default function DynamicMasthead() {
 
   return (
     <div className="w-full flex flex-col md:flex-row justify-between items-center md:items-end border-y-2 border-foreground py-2 text-[10px] sm:text-xs uppercase font-bold tracking-widest mb-6 px-4 transition-colors duration-500 gap-2 md:gap-0">
+      <button 
+        onClick={() => window.print()}
+        suppressHydrationWarning
+        className="absolute -top-10 sm:-top-4 right-0 no-print flex items-center gap-2 bg-foreground text-background px-3 py-1 text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-transform border border-foreground"
+      >
+        Print
+      </button>
       <div className="hidden md:flex flex-col text-center md:text-left">
         <span>VOL. I ... No. 1</span>
         <span className="block italic font-['Lora'] text-[10px] normal-case mt-1 text-accent animate-pulse">{time}</span>
@@ -62,7 +75,7 @@ export default function DynamicMasthead() {
       
       <div className="flex flex-col items-center text-center">
         <span className="text-xs sm:text-sm font-black border-x-2 border-foreground px-4">
-          {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase()}
+          {mounted ? fullDate : "LOADING ARCHIVES..."}
         </span>
         <span className="block font-['Playfair_Display'] text-[10px] sm:text-[11px] font-normal tracking-wide capitalize mt-1 italic">
           &quot;All the Code That&apos;s Fit to Ship&quot;

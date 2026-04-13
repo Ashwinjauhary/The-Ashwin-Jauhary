@@ -163,6 +163,7 @@ export default function LinksPage() {
                 key={i}
                 href={link.url}
                 target={link.url.startsWith('mailto') ? '_self' : '_blank'}
+                download={link.url.endsWith('.pdf') ? "Ashwin_Jauhary_Resume.pdf" : undefined}
                 className="group block border border-foreground/40 p-4 bg-foreground/5 hover:bg-foreground hover:text-background transition-all duration-300 shadow-[2px_2px_0_#000] dark:shadow-[2px_2px_0_#333] hover:shadow-[4px_4px_0_#000] dark:hover:shadow-[4px_4px_0_#333]"
               >
                 <div className="flex items-start gap-4">
