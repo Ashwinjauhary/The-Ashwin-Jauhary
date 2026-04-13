@@ -25,6 +25,11 @@ async function run() {
     await image.clone().resize(180, 180).writeAsync(appleIconPath);
     console.log('Saved apple-icon.png');
 
+    // icon512.png (512x512)
+    const icon512Path = path.join(__dirname, '..', 'public', 'icon512.png');
+    await image.clone().resize(512, 512).writeAsync(icon512Path);
+    console.log('Saved icon512.png');
+
   } catch (error) {
     if (error.code === 'MODULE_NOT_FOUND') {
       console.log('Installing jimp first...');
