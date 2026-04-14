@@ -87,9 +87,8 @@ export default function InvestigativeLens({
           <img 
             src={src} 
             alt={alt} 
-            className={`w-full h-auto transition-all duration-700 brightness-90 dark:opacity-80 ${grayscale ? 'grayscale group-hover:grayscale-0 contrast-125' : ''}`} 
+            className={`w-full h-auto transition-all duration-700 ${grayscale ? 'grayscale group-hover:grayscale-0 contrast-125' : ''}`} 
           />
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/halftone.png')] opacity-10 pointer-events-none"></div>
         </div>
       )}
 

@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Ashwin Jauhary"
   },
   description: "Official Portfolio of Ashwin Jauhary. Investigating high-fidelity AI systems, full-stack scalability, and strategic technical architecture. All the code that's fit to ship.",
+  applicationName: "Ashwin Jauhary",
   keywords: ["Ashwin Jauhary", "Full Stack Developer", "AI Engineer", "PSIT Kanpur", "Next.js Expert", "Software Engineering Portfolio", "Ashwin Jauhary Portfolio", "Technical Analyst"],
   authors: [{ name: "Ashwin Jauhary" }],
   creator: "Ashwin Jauhary",
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://the-ashwin-jauhary.vercel.app",
-    siteName: "The Ashwin Jauhary Broadsheet",
+    siteName: "Ashwin Jauhary",
     title: "Ashwin Jauhary | Official Portfolio & Technical Dossier",
     description: "Explore the investigative archives of Ashwin Jauhary's technical career. High-fidelity systems, neural orchestration, and production-level code.",
     images: [
@@ -69,7 +70,7 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Ashwin Jauhary",
-    "alternateName": ["The Ashwin Jauhary Broadsheet", "Ashwin Jauhary Portfolio"],
+    "alternateName": ["The Ashwin Jauhary Broadsheet", "Ashwin Jauhary Portfolio", "Ashwin Jauhary's Portfolio"],
     "url": "https://the-ashwin-jauhary.vercel.app"
   }
 ];
