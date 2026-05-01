@@ -78,6 +78,25 @@ const HypeIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const LeetCodeIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M16.102 17.93l-2.697 2.607c-.466.45-1.185.45-1.651 0l-1.441-1.394c-.466-.45-.466-1.18 0-1.63L12 15.825" />
+    <path d="M5 7.966L9.5 3.5a1.5 1.5 0 0 1 2.121 0L13 4.879" />
+    <path d="M3 12h7" />
+    <path d="M11.5 6.5l5 5" />
+    <path d="M14.5 9.5L19 5" />
+    <rect x="3" y="9" width="7" height="6" rx="1" />
+  </svg>
+);
+
 const FileTextIcon = ({ className }: { className?: string }) => (
   <svg 
     className={className}
@@ -101,6 +120,7 @@ const getIcon = (label: string, fallback: string) => {
   if (label.toLowerCase().includes('ledger') || label.toLowerCase().includes('yhype')) return <HypeIcon className={iconClass} />;
   if (label.toLowerCase().includes('github')) return <GithubIcon className={iconClass} />;
   if (label.toLowerCase().includes('linkedin')) return <LinkedinIcon className={iconClass} />;
+  if (label.toLowerCase().includes('leetcode')) return <LeetCodeIcon className={iconClass} />;
   if (label.toLowerCase().includes('dispatch') || label.toLowerCase().includes('resume')) return <FileTextIcon className={iconClass} />;
   if (label.toLowerCase().includes('dev.to')) return <DevtoIcon className={iconClass} />;
   if (label.toLowerCase().includes('catalyst crew')) return <StudioIcon className={iconClass} />;
