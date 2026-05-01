@@ -134,7 +134,7 @@ export default function LinksPage() {
         <p className="font-sans font-bold text-[10px] uppercase tracking-[0.3em] mb-3 border-b border-foreground pb-2 text-foreground">Correspondent In Chief</p>
         <div className="flex justify-center mb-3">
           <div className="border-2 border-foreground shadow-[3px_3px_0_#000] dark:shadow-[3px_3px_0_#333] overflow-hidden rounded-full w-20 h-20">
-            <Image src="/Avatar.png" alt="Ashwin Jauhary" width={80} height={80} className="grayscale contrast-125 object-cover w-full h-full" />
+            <Image src="/Avatar.webp" alt="Ashwin Jauhary" width={80} height={80} className="grayscale contrast-125 object-cover w-full h-full" />
           </div>
         </div>
         <h2 className="font-['Playfair_Display'] text-3xl font-black mb-1 text-foreground">{profile.name}</h2>
@@ -190,3 +190,4 @@ export default function LinksPage() {
     </div>
   );
 }
+

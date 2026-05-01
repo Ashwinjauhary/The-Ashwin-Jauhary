@@ -78,7 +78,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-between mb-6 border-b border-foreground/20 pb-4 sm:pb-2 gap-4 sm:gap-0 italic font-['Lora'] text-sm">
             <span className="flex items-center gap-3">
               <InvestigativeLens
-                src="/Avatar.png"
+                src="/Avatar.webp"
                 alt="Ashwin Jauhary"
                 className="w-12 h-12 rounded-full border-2 border-foreground"
               />
@@ -101,7 +101,7 @@ export default function Home() {
             {/* Inline Image Callout */}
             <div className="my-6 border-[3px] border-black p-2 bg-[#f0ebd9] inline-block w-full break-inside-avoid shadow-[4px_4px_0_#1a1a1a]">
               <div className="border border-black p-1 flex justify-center">
-                <InvestigativeLens src="/logo.png" alt="Architect Graphic" />
+                <InvestigativeLens src="/logo.webp" alt="Architect Graphic" />
               </div>
               <p className="text-[10px] uppercase font-sans font-bold text-center mt-2 tracking-widest px-2">Fig 1. Abstract System Schematic.</p>
             </div>
@@ -235,3 +235,4 @@ export default function Home() {
 
   );
 }
+

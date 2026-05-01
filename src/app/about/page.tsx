@@ -75,7 +75,7 @@ export default function About() {
           <div className="border-4 border-foreground shadow-[8px_8px_0_#000] dark:shadow-[8px_8px_0_#333] bg-foreground/5">
             <div className="relative overflow-hidden border-b-[3px] border-foreground">
               <InvestigativeLens
-                src="/Avatar.png"
+                src="/Avatar.webp"
                 alt="Ashwin Jauhary — Chief Correspondent"
                 grayscale={true}
               />
@@ -146,3 +146,4 @@ export default function About() {
     </div>
   );
 }
+

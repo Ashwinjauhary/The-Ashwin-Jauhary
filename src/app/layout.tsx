@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description: "Explore the investigative archives of Ashwin Jauhary's technical career. High-fidelity systems, neural orchestration, and production-level code.",
     images: [
       {
-        url: "/Avatar.png",
+        url: "/Avatar.webp",
         width: 800,
         height: 600,
         alt: "Ashwin Jauhary - Investigative Technical Analyst",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ashwin Jauhary | Full Stack AI Architect",
     description: "Investigating high-fidelity AI systems and strategic technical architecture.",
-    images: ["/Avatar.png"],
+    images: ["/Avatar.webp"],
   },
   verification: {
     google: "6tL5BnCXfeKk0mb3gEPf62HjgG-Ad-lB49u1wWjMeKA",
@@ -110,3 +110,4 @@ export default function RootLayout({
     </html>
   );
 }
+
