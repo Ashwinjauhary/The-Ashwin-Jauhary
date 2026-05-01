@@ -12,12 +12,8 @@ const nextConfig: NextConfig = {
   turbopack: {}
 };
 
-import withPWAInit from "@ducanh2912/next-pwa";
+// The `@ducanh2912/next-pwa` plugin is fundamentally incompatible with Next.js 16
+// because it relies on internal Webpack files (`bundle5`) that Next.js has removed.
+// If you want PWA support in Next.js 16, please consider migrating to `@serwist/next`.
 
-const withPWA = withPWAInit({
-  dest: "public",
-  disable: process.env.NODE_ENV === "development", // Disabled in dev so it doesn't cache local files
-  register: true,
-});
-
-export default withPWA(nextConfig);
+export default nextConfig;

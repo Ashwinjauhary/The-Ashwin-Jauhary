@@ -1,5 +1,5 @@
 import { about, skills, certificates, profile } from "@/data";
-import Image from "next/image";
+
 import InvestigativeLens from "@/components/InvestigativeLens";
 
 export default function About() {

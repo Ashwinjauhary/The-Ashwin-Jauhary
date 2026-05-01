@@ -13,6 +13,7 @@ export const profile = {
   phone: "+91-95556 81211",
   github: "https://github.com/Ashwinjauhary",
   linkedin: "https://www.linkedin.com/in/ashwin-jauhary/",
+  leetcode: "https://leetcode.com/u/Ashwinjauhary/",
   githubStats: {
     contributions: "828+",
     repos: "69 Total (31 Public)",
@@ -30,6 +31,7 @@ export const about = {
     { icon: "📍", label: "Location", value: "Kanpur, Uttar Pradesh, India" },
     { icon: "📧", label: "Email", value: "ashwin2431333@gmail.com" },
     { icon: "📞", label: "Phone", value: "+91-95556 81211" },
+    { icon: "💻", label: "LeetCode", value: "Algorithmic Problem Solver" },
     { icon: "⌥", label: "GitHub", value: "828+ contributions · 31 public repos" },
   ],
 };
@@ -285,6 +287,7 @@ export const clientWork = [
 
 export const links = [
   { label: "The Technical Ledger", url: "https://yhype.me/github/@Ashwinjauhary", icon: "📊", category: "Core Platforms", description: "Live technical dossiers, commit metrics, and professional dev standings — via Ÿ HŸPE" },
+  { label: "LeetCode Profile", url: "https://leetcode.com/u/Ashwinjauhary/", icon: "💻", category: "Core Platforms", description: "Algorithmic problem solving and coding challenges" },
   { label: "GitHub Repository", url: "https://github.com/Ashwinjauhary", icon: "⌥", category: "Core Platforms", description: "828+ contributions · 31 public repos · Active since 2024" },
   { label: "LinkedIn Profile", url: "https://www.linkedin.com/in/ashwin-jauhary/", icon: "☎", category: "Core Platforms", description: "Career announcements, endorsements, and professional network" },
   { label: "Official Career Dispatch", url: "/Resume.pdf", icon: "📄", category: "Core Platforms", description: "Verified professional history and technical certifications — [PDF Format]" },
