@@ -62,7 +62,8 @@ const jsonLd = [
     "sameAs": [
       "https://linkedin.com/in/ashwin-jauhary",
       "https://github.com/Ashwinjauhary",
-      "https://dev.to/ashwinjauhary"
+      "https://dev.to/ashwinjauhary",
+      "https://leetcode.com/u/Ashwinjauhary/"
     ],
     "description": "Ashwin Jauhary is a Full Stack AI Architect specializing in high-fidelity systems and strategic technical architecture."
   },
@@ -70,8 +71,28 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Ashwin Jauhary",
+    "publisher": {
+      "@type": "Person",
+      "name": "Ashwin Jauhary"
+    },
     "alternateName": ["The Ashwin Jauhary Broadsheet", "Ashwin Jauhary Portfolio", "Ashwin Jauhary's Portfolio"],
-    "url": "https://the-ashwin-jauhary.vercel.app"
+    "url": "https://the-ashwin-jauhary.vercel.app",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://the-ashwin-jauhary.vercel.app/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "name": "Ashwin Jauhary - Official Portfolio",
+    "url": "https://the-ashwin-jauhary.vercel.app",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Ashwin Jauhary",
+      "identifier": "ashwinjauhary"
+    }
   }
 ];
 
