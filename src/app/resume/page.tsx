@@ -134,7 +134,7 @@ export default function Resume() {
             <h3 className="font-['Playfair_Display'] text-2xl font-black uppercase border-b-2 border-foreground pb-2 mb-6 text-foreground">Certified Merits ({certificates.length})</h3>
             <div className="space-y-6">
               {certificates.map((cert, idx) => (
-                <div key={idx} className="border-[2px] border-foreground/30 bg-background hover:border-foreground/60 transition-all duration-300 overflow-hidden group shadow-[3px_3px_0_rgba(0,0,0,0.08)] hover:shadow-[5px_5px_0_rgba(0,0,0,0.12)]">
+                <div key={idx} className="border-2 border-foreground/30 bg-background hover:border-foreground/60 transition-all duration-300 overflow-hidden group shadow-[3px_3px_0_rgba(0,0,0,0.08)] hover:shadow-[5px_5px_0_rgba(0,0,0,0.12)]">
                   
                   {/* PDF Preview Thumbnail */}
                   <div className="relative w-full h-[220px] bg-foreground/5 border-b border-foreground/20 overflow-hidden">
