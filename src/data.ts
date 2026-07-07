@@ -76,18 +76,41 @@ export const experience = [
 ];
 
 export const certificates = [
-  { title: "JavaScript Professional Developer", org: "HackerRank (Verified)", year: "2024", level: "Professional" },
-  { title: "Java (Basic)", org: "HackerRank (Verified)", year: "2024", level: "Certified" },
-  { title: "SQL (Basic)", org: "HackerRank (Verified)", year: "2024", level: "Certified" },
-  { title: "CSS Assessment", org: "HackerRank (Verified)", year: "2024", level: "Certified" },
-  { title: "Build Computer Vision App — Azure", org: "Coursera (Microsoft)", year: "2025", level: "Specialist" },
-  { title: "Programming in C", org: "Infosys Springboard", year: "2025", level: "Certified" },
-  { title: "Python Pandas Basics", org: "Simplilearn SkillUp", year: "2025", level: "Certified" },
-  { title: "Data Science with Python", org: "LetsUpgrade", year: "2025", level: "Certified" },
-  { title: "Cyber Security Fundamentals", org: "Simplilearn", year: "2025", level: "Certified" },
-  { title: "Introduction to IoT", org: "Simplilearn", year: "2025", level: "Certified" },
-  { title: "Excel Bootcamp", org: "LetsUpgrade", year: "2025", level: "Certified" },
-  { title: "C Programming Basics", org: "Simplilearn", year: "2024", level: "Certified" },
+  {
+    title: "Programming in C",
+    org: "Infosys Springboard",
+    year: "2025",
+    level: "Certified",
+    pdf: "/Infosys-C-Certificate.pdf",
+    issueDate: "February 20, 2025",
+    credentialId: "N/A",
+    verifyUrl: "https://verify.onwingspan.com",
+    signedBy: "Thirumala Arohi — EVP & Global Head, Education, Training & Assessment (ETA), Infosys Limited",
+  },
+  {
+    title: "Data Science with Python",
+    org: "LetsUpgrade",
+    year: "2025",
+    level: "Certified",
+    pdf: "/Data-Science-Python-Certificate.pdf",
+    issueDate: "February 19, 2025",
+    duration: "3 Days (Feb 17 – Feb 19, 2025)",
+    credentialId: "LUEDSFEB125S17",
+    verifyUrl: "https://www.letsupgrade.in/verify",
+    collaborators: ["NSDC", "ITM Edutech Training Pvt. Ltd.", "GDG MAD"],
+  },
+  {
+    title: "Excel Bootcamp",
+    org: "LetsUpgrade",
+    year: "2025",
+    level: "Certified",
+    pdf: "/Excel-Certificate.pdf",
+    issueDate: "February 22, 2025",
+    duration: "3 Days (Feb 20 – Feb 22, 2025)",
+    credentialId: "LUEEXLFEB125363",
+    verifyUrl: "https://www.letsupgrade.in/verify",
+    collaborators: ["NSDC", "ITM Edutech Training Pvt. Ltd.", "GDG MAD"],
+  },
 ];
 
 export const skills = [
@@ -293,10 +316,10 @@ export const links = [
   { label: "Official Career Dispatch", url: "/Resume.pdf", icon: "📄", category: "Core Platforms", description: "Verified professional history and technical certifications — [PDF Format]" },
   { label: "Dev.to Articles", url: "https://dev.to/ashwinjauhary", icon: "✍️", category: "Core Platforms", description: "Technical dispatches, deep-dives, and engineering blog" },
 
-  
+
   { label: "DevRoast-Ai", url: "https://dev-roast-ai-sand.vercel.app", icon: "🔥", category: "Major Projects", description: "Multi-AI GitHub audit tool using Groq, Gemini & SambaNova" },
   { label: "BondSpace", url: "https://bond-space.vercel.app", icon: "🔐", category: "Major Projects", description: "E2E encrypted real-time communication for close connections" },
   { label: "ClubSphere", url: "https://club-sphere-sepia.vercel.app", icon: "🏛", category: "Major Projects", description: "Campus OS — RBAC, QR attendance, AI analytics" },
-  
+
   { label: "Contact via Email", url: "mailto:ashwin2431333@gmail.com", icon: "✉", category: "Contact", description: "Direct line for recruitment and collaboration" },
 ];

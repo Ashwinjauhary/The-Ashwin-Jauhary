@@ -26,7 +26,7 @@ export default function Resume() {
           <p className="font-sans text-[8px] xs:text-[10px] uppercase tracking-widest font-bold text-foreground/60">Public Repos</p>
         </div>
         <div className="py-4 px-1 xs:px-2">
-          <p className="font-['Playfair_Display'] text-2xl xs:text-3xl font-black text-foreground">12</p>
+          <p className="font-['Playfair_Display'] text-2xl xs:text-3xl font-black text-foreground">3</p>
           <p className="font-sans text-[8px] xs:text-[10px] uppercase tracking-widest font-bold text-foreground/60">Certifications</p>
         </div>
       </div>
@@ -129,17 +129,99 @@ export default function Resume() {
             </div>
           </div>
 
-          {/* All Certifications */}
+          {/* All Certifications — LinkedIn-Style Cards */}
           <div>
-            <h3 className="font-['Playfair_Display'] text-2xl font-black uppercase border-b-2 border-foreground pb-2 mb-4 text-foreground">Certified Merits ({certificates.length})</h3>
-            <div className="space-y-2">
+            <h3 className="font-['Playfair_Display'] text-2xl font-black uppercase border-b-2 border-foreground pb-2 mb-6 text-foreground">Certified Merits ({certificates.length})</h3>
+            <div className="space-y-6">
               {certificates.map((cert, idx) => (
-                <div key={idx} className="flex justify-between items-start border border-foreground/40 p-3 bg-foreground/5 hover:bg-foreground/10 transition-colors duration-500 group">
-                  <div>
-                    <p className="font-['Playfair_Display'] font-bold text-base leading-snug group-hover:underline text-foreground">{cert.title}</p>
-                    <p className="font-['Lora'] italic text-xs mt-0.5 text-foreground/60">{cert.org} · <span className="font-sans uppercase tracking-wider text-[9px] font-bold">{cert.level}</span></p>
+                <div key={idx} className="border-[2px] border-foreground/30 bg-background hover:border-foreground/60 transition-all duration-300 overflow-hidden group shadow-[3px_3px_0_rgba(0,0,0,0.08)] hover:shadow-[5px_5px_0_rgba(0,0,0,0.12)]">
+                  
+                  {/* PDF Preview Thumbnail */}
+                  <div className="relative w-full h-[220px] bg-foreground/5 border-b border-foreground/20 overflow-hidden">
+                    <iframe
+                      src={`${cert.pdf}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                      className="w-full h-[400px] pointer-events-none scale-100 origin-top"
+                      title={`${cert.title} Certificate Preview`}
+                      style={{ border: 'none' }}
+                    />
+                    {/* Overlay to prevent interaction and add click-to-open */}
+                    <a
+                      href={cert.pdf}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 z-10 bg-transparent hover:bg-foreground/5 transition-colors flex items-end justify-center pb-3 opacity-0 group-hover:opacity-100"
+                    >
+                      <span className="bg-foreground text-background font-sans text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 shadow-lg">
+                        Open Full Certificate ↗
+                      </span>
+                    </a>
                   </div>
-                  <span className="font-sans font-black text-accent text-sm shrink-0 ml-4">{cert.year}</span>
+
+                  {/* Certificate Details */}
+                  <div className="p-4 space-y-3">
+                    {/* Title & Org */}
+                    <div>
+                      <h4 className="font-['Playfair_Display'] font-black text-lg leading-tight text-foreground">{cert.title}</h4>
+                      <p className="font-['Lora'] text-sm text-foreground/70 mt-0.5">{cert.org}</p>
+                    </div>
+
+                    {/* Meta Grid */}
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs font-sans">
+                      <div>
+                        <p className="text-[9px] uppercase tracking-widest font-bold text-foreground/40">Issued</p>
+                        <p className="font-semibold text-foreground/80">{cert.issueDate}</p>
+                      </div>
+                      <div>
+                        <p className="text-[9px] uppercase tracking-widest font-bold text-foreground/40">Credential ID</p>
+                        <p className="font-mono font-semibold text-foreground/80 text-[11px]">{cert.credentialId}</p>
+                      </div>
+                      {cert.duration && (
+                        <div className="col-span-2">
+                          <p className="text-[9px] uppercase tracking-widest font-bold text-foreground/40">Duration</p>
+                          <p className="font-semibold text-foreground/80">{cert.duration}</p>
+                        </div>
+                      )}
+                      {cert.signedBy && (
+                        <div className="col-span-2">
+                          <p className="text-[9px] uppercase tracking-widest font-bold text-foreground/40">Signed By</p>
+                          <p className="font-semibold text-foreground/80">{cert.signedBy}</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Collaborators */}
+                    {cert.collaborators && (
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {cert.collaborators.map((c, i) => (
+                          <span key={i} className="font-sans text-[9px] font-bold border border-foreground/30 px-2 py-0.5 text-foreground/60 bg-foreground/5">{c}</span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-3 pt-2 border-t border-foreground/10">
+                      <a
+                        href={cert.pdf}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 inline-flex items-center justify-center gap-2 font-sans text-[11px] font-bold uppercase tracking-widest border-2 border-foreground px-3 py-2 bg-foreground text-background hover:opacity-90 transition-opacity"
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        Show Credential
+                      </a>
+                      {cert.verifyUrl && (
+                        <a
+                          href={cert.verifyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-1.5 font-sans text-[11px] font-bold uppercase tracking-widest border-2 border-foreground/40 px-3 py-2 text-foreground/70 hover:bg-foreground/10 transition-colors"
+                        >
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                          Verify
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
