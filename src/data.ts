@@ -28,7 +28,7 @@ export const about = {
     { icon: "🏢", label: "Role", value: "Lead @ Catalyst Crew · President @ Codester Club" },
     { icon: "🚀", label: "Focus", value: "Full-Stack, AI Systems & Product Engineering" },
     { icon: "📈", label: "Goal", value: "Scaling Products, Building Systems & Investments" },
-    { icon: "📍", label: "Location", value: "Kanpur, Uttar Pradesh, India" },
+    { icon: "📍", label: "Location", value: "Kanpur, Uttar Pradesh, India " },
     { icon: "📧", label: "Email", value: "ashwin2431333@gmail.com" },
     { icon: "📞", label: "Phone", value: "+91-95556 81211" },
     { icon: "💻", label: "LeetCode", value: "Algorithmic Problem Solver" },
@@ -64,15 +64,7 @@ export const experience = [
     description: "Architecting and deploying internal studio tools and full-scale client systems. Lead developer for the studio's primary digital presence, ensuring sub-second load times and premium UI fidelity across the ecosystem.",
     highlights: ["Core Infrastructure Build", "Performance Engineering", "Studio Branding", "SaaS Delivery"],
   },
-  {
-    role: "Open Source Contributor",
-    org: "GSSoC '24 (GirlScript Summer of Code)",
-    url: "https://gssoc.girlscript.tech",
-    period: "May 2024 – July 2024",
-    type: "Open Source",
-    description: "Contributed to multiple open-source projects during GSSoC 2024. Primary focus on React and frontend optimization PRs across community repositories.",
-    highlights: ["React Contributions", "Frontend Optimization", "Community OSS", "Code Reviews"],
-  },
+
 ];
 
 export const certificates = [
